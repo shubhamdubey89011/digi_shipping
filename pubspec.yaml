@@ -1,0 +1,31 @@
+name: document_fill_demo
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  file_picker: ^8.1.7
+  flutter:
+    sdk: flutter
+  flutter_3d_choice_chip: ^0.1.4
+  flutter_svg: ^2.0.16
+  get: ^4.6.6
+  google_fonts: ^6.2.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/Help_Container.png
+    - assets/icons/Help_Container.svg
+    - assets/icons/ham_burger.svg
+    - assets/icons/notification_icon.svg
+    - assets/icons/arrow.svg
+  uses-material-design: true
