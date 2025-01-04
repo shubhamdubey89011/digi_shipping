@@ -13,7 +13,7 @@ PreferredSizeWidget customAppBar({
   PreferredSizeWidget? bottom,
   double elevation = 4.0,
 }) {
-  return AppBar(toolbarHeight: 58,clipBehavior: Clip.antiAlias,titleSpacing: 10,
+  return AppBar(toolbarHeight: 62,clipBehavior: Clip.antiAlias,titleSpacing: 10,
     bottom: bottom,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Widget customTextField({
   required String labelText,
@@ -11,6 +12,9 @@ Widget customTextField({
   Function(String)? onChanged,
   String? Function(String?)? validator,
   TextStyle? style,
+  double? fontSize,
+  FontWeight? fontWeight,
+  Color? color,
 }) {
   return TextFormField(
     controller: controller,
@@ -18,12 +22,34 @@ Widget customTextField({
     obscureText: obscureText,
     onChanged: onChanged,
     validator: validator,
-style: style,
+    style: GoogleFonts.plusJakartaSans(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    ),
     decoration: InputDecoration(
-      labelText: labelText,labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),
+      labelText: labelText,
+      labelStyle: GoogleFonts.plusJakartaSans(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+      ),
       hintText: hintText,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
+      floatingLabelStyle: GoogleFonts.plusJakartaSans(
+        color: Color.fromRGBO(78, 77, 77, 1), 
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+      ),
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: const BorderSide(color: Color.fromRGBO(141, 188, 211, 1)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: const BorderSide(color: Color.fromRGBO(141, 188, 211, 1)),
+        gapPadding: 8.0, 
       ),
       prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
       suffixIcon: suffixIcon != null ? Icon(Icons.arrow_forward_ios) : null,

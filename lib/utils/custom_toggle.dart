@@ -1,46 +1,57 @@
-import 'package:document_fill_demo/utils/custom_text.dart';
+import 'package:document_fill_demo/controller/toggle_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Widget buildToggleGroup({
-  required List<String> labels,
-  required int selectedValue,
-  required ValueChanged<int> onValueChanged,
-}) {
-  return Container(
-    decoration: BoxDecoration(
-      color: Color.fromRGBO(242, 244, 245, 1),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Row(
-      children: List.generate(labels.length, (index) {
-        return _buildToggleButton(
-          labels[index],
-          selectedValue == index,
-          () => onValueChanged(index),
-        );
-      }),
-    ),
-  );
-}
+class CustomToggleButtons extends StatelessWidget {
+  final List<String> labels;
+  final CustomToggleController controller;
+  final ValueChanged<int> onValueChanged;
+  
 
-Widget _buildToggleButton(
-    String label, bool isSelected, VoidCallback onPressed) {
-  return GestureDetector(
-    onTap: onPressed,
-    child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-              color: isSelected
-                  ? Color.fromRGBO(141, 188, 211, 1)
-                  : Colors.transparent),
+  CustomToggleButtons({
+    required this.labels,
+    required this.controller,
+    required this.onValueChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: List.generate(
+          labels.length,
+          (index) => GestureDetector(
+            onTap: () {
+              controller.updateSelectedValue(index);
+              onValueChanged(index);
+            },
+            child: Container(
+              
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: controller.selectedValue.value == index
+                    ? Colors.blue
+                    : Colors.grey[200],
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: controller.selectedValue.value == index
+                      ? Colors.blue
+                      : Colors.grey,
+                ),
+              ),
+              child: Text(
+                labels[index],
+                style: TextStyle(
+                  color: controller.selectedValue.value == index
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
+            ),
+          ),
         ),
-        child: customText(
-            text: label,
-            color: isSelected ? Colors.black : Colors.black,
-            fontSize: 10,
-            fontWeight: FontWeight.w600)),
-  );
+      ),
+    );
+  }
 }

@@ -13,9 +13,13 @@ Widget customText({
 }) {
   return Text(
     text,
-    style: GoogleFonts.plusJakartaSans(color: color,fontSize:  fontSize,fontWeight: fontWeight),
+    style: GoogleFonts.plusJakartaSans(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight),
     textAlign: textAlign,
     maxLines: maxLines,
-    overflow: overflow,softWrap: false,
+    overflow: overflow,
+    softWrap: false,
   );
 }

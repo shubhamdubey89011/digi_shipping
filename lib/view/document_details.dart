@@ -1,9 +1,10 @@
 import 'package:document_fill_demo/controller/document_details_controller.dart';
+import 'package:document_fill_demo/controller/toggle_controller.dart';
+import 'package:document_fill_demo/party_details/view/party_details.dart';
 import 'package:document_fill_demo/utils/custom_appbar.dart';
 import 'package:document_fill_demo/utils/custom_dash_container.dart';
 import 'package:document_fill_demo/utils/custom_text.dart';
 import 'package:document_fill_demo/utils/custom_toggle.dart';
-import 'package:document_fill_demo/view/entity_details.dart';
 import 'package:document_fill_demo/view/instructions.dart';
 import 'package:document_fill_demo/view/stamp_paper_details.dart';
 import 'package:file_picker/file_picker.dart';
@@ -27,19 +28,27 @@ class ToggleController extends GetxController {
 class DocumentDetailsPage extends StatelessWidget {
   DocumentDetailsPage({super.key});
   final ToggleController toggleController = Get.put(ToggleController());
-  final DocumentDetailsController _controller = Get.put(DocumentDetailsController());
+  final DocumentDetailsController _controller =
+      Get.put(DocumentDetailsController());
 
+  final CustomToggleController esignRequiredController =
+      Get.put(CustomToggleController(), tag: 'esign');
+  final CustomToggleController individualOrEntityController =
+      Get.put(CustomToggleController(), tag: 'entity');
+  final CustomToggleController stampPaperNeededController =
+      Get.put(CustomToggleController(), tag: 'stamp');
+
+  final RxInt esignRequired = 0.obs;
+  final RxInt individualOrEntity = 0.obs;
+  final RxInt stampPaperNeeded = 0.obs;
 
   final List<Map<String, String>> tabsData = [
     {'title': 'DOCUMENT', 'subtitle': 'DETAILS'},
-    {'title': 'ENTITY', 'subtitle': 'DETAILS'},
+    {'title': 'PARTY', 'subtitle': 'DETAILS'},
     {'title': 'STAMP', 'subtitle': 'PAPER DETAILS'},
     {'title': 'SIGNATORY', 'subtitle': 'DETAILS'},
   ];
 
-  final esignRequired = 0.obs; // 0: Yes, 1: No
-  final individualOrEntity = 0.obs; // 0: Individual, 1: Entity
-  final stampPaperNeeded = 0.obs; // 0: No, 1: Yes
   final selectedState = ''.obs;
 
   final List<String> states = [
@@ -172,8 +181,8 @@ class DocumentDetailsPage extends StatelessWidget {
     switch (title) {
       case 'DOCUMENT':
         return _buildDocumentDetails();
-      case 'ENTITY':
-        return EntityDetails();
+      case 'PARTY':
+        return PartyDetails();
       case 'STAMP':
         return StampPaperDetails();
       case 'SIGNATORY':
@@ -199,7 +208,7 @@ class DocumentDetailsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Container(
+          Container(
             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -231,7 +240,8 @@ class DocumentDetailsPage extends StatelessWidget {
 
                       // Check file size (between 50 KB and 1024 KB)
                       if (file.size >= 50 * 1024 && file.size <= 1024 * 1024) {
-                        _controller.fileName.value = file.name; // Update file name
+                        _controller.fileName.value =
+                            file.name; // Update file name
                         print('Selected file: ${file.name}');
                       } else {
                         print('File size is out of the allowed range.');
@@ -242,11 +252,6 @@ class DocumentDetailsPage extends StatelessWidget {
                     }
                   },
                   child: DashedBorderContainer(
-                    dashWidth: 8.0,
-                    dashSpace: 4.0,
-                    strokeWidth: 1.0,
-                    borderColor: Color.fromRGBO(141, 188, 211, 1),
-                    borderRadius: 7.0,
                     child: Container(
                       alignment: Alignment.center,
                       height: 50,
@@ -254,7 +259,8 @@ class DocumentDetailsPage extends StatelessWidget {
                       child: Obx(() {
                         // Use Obx to reactively display the file name
                         return customText(
-                          text: _controller.fileName.value ?? 'Tap to upload PDF', 
+                          text:
+                              _controller.fileName.value ?? 'Tap to upload PDF',
                           color: Color.fromRGBO(19, 110, 248, 1),
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
@@ -275,98 +281,50 @@ class DocumentDetailsPage extends StatelessWidget {
               ],
             ),
           ),
-        
           const SizedBox(height: 20),
           Container(
             margin: EdgeInsets.all(10),
-            child: Material(
+            child: Container(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                elevation: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      _buildToggleSection(
-                        title: 'E-Sign Required or Not*',
-                        toggleButtons: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 5),
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(242, 244, 245, 1),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: buildToggleGroup(
-                              labels: ['Yes', 'No'],
-                              selectedValue: toggleController
-                                  .selectedValue.value, // Use selectedValue
-                              onValueChanged: (index) {
-                                toggleController.updateSelectedValue(
-                                    index); // Use updateSelectedValue
-                                esignRequired.value = index;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildToggleSection(
-                            title: 'Individual or Entity*',
-                            toggleButtons: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(242, 244, 245, 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: buildToggleGroup(
-                                  labels: ['Individual', 'Entity'],
-                                  selectedValue: toggleController
-                                      .entityType.value, // Pass correct value
-                                  onValueChanged: (index) {
-                                    toggleController.updateEntityType(
-                                        index); // Update controller value
-                                    individualOrEntity.value =
-                                        index; // Update local value
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          _buildToggleSection(
-                            title: 'Stamp Paper Needed*',
-                            toggleButtons: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(242, 244, 245, 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: buildToggleGroup(
-                                  labels: ['Yes', 'No'],
-                                  selectedValue: toggleController.selectedValue
-                                      .value, // Use the correct selected value
-                                  onValueChanged: (index) {
-                                    toggleController.updateSelectedValue(
-                                        index); // Update controller value
-                                    stampPaperNeeded.value =
-                                        index; // Update local value
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    _buildToggleSection(
+                      controller: esignRequiredController,
+                      labels: ['Yes', 'No'],
+                      onValueChanged: (index) {
+                        esignRequired.value = index;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildToggleSection(
+                          controller: individualOrEntityController,
+                          labels: ['Individual', 'Entity'],
+                          onValueChanged: (index) {
+                            individualOrEntity.value = index;
+                          },
+                        ),
+                        const SizedBox(width: 20),
+                        _buildToggleSection(
+                          controller: stampPaperNeededController,
+                          labels: ['Yes', 'No'],
+                          onValueChanged: (index) {
+                            stampPaperNeeded.value = index;
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           Obx(
@@ -438,20 +396,22 @@ class DocumentDetailsPage extends StatelessWidget {
   }
 
   Widget _buildToggleSection({
-    required String title,
-    required List<Widget> toggleButtons,
+    // required String title,
+    required CustomToggleController controller,
+    required List<String> labels,
+    required ValueChanged<int> onValueChanged,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        customText(
-            text: title,
-            color: Colors.black,
-            fontSize: 12,
-            fontWeight: FontWeight.w600),
-        const SizedBox(height: 8),
-        Row(children: toggleButtons),
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(242, 244, 245, 1),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: CustomToggleButtons(
+        labels: labels,
+        controller: controller,
+        onValueChanged: onValueChanged,
+      ),
     );
   }
 }

@@ -14,6 +14,10 @@ dependencies:
   flutter_svg: ^2.0.16
   get: ^4.6.6
   google_fonts: ^6.2.1
+  hive: ^2.2.3
+  path: ^1.9.0
+  sqflite: ^2.4.1
+  sqflite_common_ffi: ^2.3.3+1
 
 
 dev_dependencies:
@@ -28,4 +32,8 @@ flutter:
     - assets/icons/ham_burger.svg
     - assets/icons/notification_icon.svg
     - assets/icons/arrow.svg
+    - assets/icons/dropdown.svg
+    - assets/icons/edit_icon.svg
+    - assets/icons/delete.svg
+    - assets/icons/tick_mark.svg
   uses-material-design: true

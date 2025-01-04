@@ -24,11 +24,11 @@ class DashedBorderContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: DashedBorderPainter(
-        strokeWidth: strokeWidth,
-        dashWidth: dashWidth,
-        dashSpace: dashSpace,
-        borderColor: borderColor,
-        borderRadius: borderRadius,
+        dashWidth: 8.0,
+                    dashSpace: 4.0,
+                    strokeWidth: 1.0,
+                    borderColor: Color.fromRGBO(141, 188, 211, 1),
+                    borderRadius: 7.0,
       ),
       child: Padding(
         padding: padding,
