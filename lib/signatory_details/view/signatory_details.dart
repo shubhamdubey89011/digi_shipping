@@ -2,21 +2,28 @@ import 'package:document_fill_demo/constants/constant_list.dart';
 import 'package:document_fill_demo/dashboard/view/dashboard_view.dart';
 import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
 import 'package:document_fill_demo/party_details/controller/second_party_detailscontroller.dart';
-import 'package:document_fill_demo/party_details/view/second_partydetails.dart';
 import 'package:document_fill_demo/party_details/view/first_partydetails.dart';
+import 'package:document_fill_demo/party_details/view/party_details.dart';
+import 'package:document_fill_demo/party_details/view/second_partydetails.dart';
+import 'package:document_fill_demo/signatory_details/controller/signatory_controller.dart';
+import 'package:document_fill_demo/signatory_details/view/first_signatory_details.dart';
+import 'package:document_fill_demo/signatory_details/view/secod_signatory_details.dart';
 import 'package:document_fill_demo/utils/custom_text.dart';
+import 'package:document_fill_demo/view/document_details.dart';
 import 'package:document_fill_demo/view/stamp_paper_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PartyDetails extends StatelessWidget {
-  PartyDetails({super.key});
+class PartySignatoryDetails extends StatelessWidget {
+  
+  PartySignatoryDetails({super.key});
 
-  // final FirstPartyDetailsController controller =
-  //     Get.put(FirstPartyDetailsController());
+// final SignatoryController controller = Get.find<SignatoryController>();
+  final FirstPartyDetailsController firstcontroller =
+      Get.find<FirstPartyDetailsController>();
 
-  final FirstPartyDetailsController firstcontroller = Get.find<FirstPartyDetailsController>();
-  final SecondPartyDetailscontroller secondcontroller = Get.find<SecondPartyDetailscontroller>();
+      final SignatoryController signatorycontroller = Get.find<SignatoryController>();
+      final SecondPartyDetailscontroller secondcontroller = Get.find<SecondPartyDetailscontroller>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,29 +41,19 @@ class PartyDetails extends StatelessWidget {
   Widget _buildTabContent(String title) {
     switch (title) {
       case 'DOCUMENT':
-        return _partyDocumentDetails();
+        return DocumentDetailsPage();
       case 'PARTY':
-        return _partyDocumentDetails();
+        return PartyDetails();
       case 'STAMP':
         return StampPaperDetails();
       case 'SIGNATORY':
-        return Center(
-            child: customText(
-                text: 'Signatory Details Page',
-                color: Colors.black,
-                fontSize: 10,
-                fontWeight: FontWeight.w700));
+        return _partysignatorydetails();
       default:
-        return Center(
-            child: customText(
-                text: 'Other Details Page',
-                color: Colors.black,
-                fontSize: 10,
-                fontWeight: FontWeight.w700));
+        return _partysignatorydetails();
     }
   }
 
-  Widget _partyDocumentDetails() {
+  Widget _partysignatorydetails() {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
@@ -66,29 +63,18 @@ class PartyDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 60,
+                alignment: Alignment.center,
+                height: 50,
                 width: 327,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color.fromRGBO(255, 254, 209, 1),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    customText(
-                        text: 'First and Second Party details are mandatory.',
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: 12),
-                    customText(
-                        text:
-                            'These details will be printed on the stamp paper',
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: 12),
-                  ],
-                ),
+                child: customText(
+                    text: 'Add at least two signatory .',
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 12),
               ),
               SizedBox(
                 height: 20,
@@ -96,7 +82,7 @@ class PartyDetails extends StatelessWidget {
               FirstPartyDetailsCard(
                 onContinue: () {
                   firstcontroller.toggleFormVisibility();
-
+              
                   print('Continue pressed');
                 },
               ),
@@ -106,11 +92,24 @@ class PartyDetails extends StatelessWidget {
               SecondPartyDetailsCard(
                 onContinue: () {
                   secondcontroller.toggleFormVisibility();
-                  
+               
 
                   print('Continue pressed');
                 },
               ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              FirstSignatoryDetails(onContinue: () {
+                signatorycontroller.toggleFormVisibility();
+                
+              },),
+              SizedBox(
+                height: 30,
+              ),
+              
             ],
           ),
         ),

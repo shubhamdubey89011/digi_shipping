@@ -1,4 +1,5 @@
 import 'package:document_fill_demo/controller/toggle_controller.dart';
+import 'package:document_fill_demo/utils/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,26 +32,47 @@ class CustomToggleButtons extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: controller.selectedValue.value == index
-                    ? Colors.blue
-                    : Colors.grey[200],
+                    ? Colors.white
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(
                   color: controller.selectedValue.value == index
                       ? Colors.blue
-                      : Colors.grey,
+                      : Colors.transparent,
                 ),
               ),
-              child: Text(
-                labels[index],
-                style: TextStyle(
-                  color: controller.selectedValue.value == index
-                      ? Colors.white
+              child: customText(
+               text:  labels[index],
+                color: controller.selectedValue.value == index
+                      ? Color(0xFF4E4D4D)
                       : Colors.black,
-                ),
+                      fontSize: 12,fontWeight: FontWeight.w600,
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+    Widget buildToggleSection({
+    // required String title,
+    required CustomToggleController controller,
+    required List<String> labels,
+    required ValueChanged<int> onValueChanged,
+    required BuildContext context,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.36,
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(242, 244, 245, 1),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: CustomToggleButtons(
+        labels: labels,
+        controller: controller,
+        onValueChanged: onValueChanged,
       ),
     );
   }

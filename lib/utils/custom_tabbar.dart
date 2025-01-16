@@ -1,30 +1,40 @@
-  import 'package:document_fill_demo/utils/custom_text.dart';
-import 'package:document_fill_demo/view/document_details.dart';
-import 'package:document_fill_demo/view/entity_details.dart';
-import 'package:document_fill_demo/view/stamp_paper_details.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Widget buildTabContent(String title) {
-    switch (title) {
-      case 'DOCUMENT':
-        return DocumentDetailsPage();
-      case 'ENTITY':
-        return EntityDetails();
-      case 'STAMP':
-        return StampPaperDetails();
-      case 'SIGNATORY':
-        return Center(
-            child: customText(
-                text: 'Signatory Details Page',
-                color: Colors.black,
-                fontSize: 10,
-                fontWeight: FontWeight.w700));
-      default:
-        return Center(
-            child: customText(
-                text: 'Other Details Page',
-                color: Colors.black,
-                fontSize: 10,
-                fontWeight: FontWeight.w700));
-    }
-  }
+class TabControllerClass extends GetxController {
+  var currentTabIndex = 0.obs; // Reactive variable for tab index
+  final List<Tab> tabs = [
+    const Tab(
+      child: Column(
+        children: [
+          Text('DOCUMENT', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('DETAILS', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ),
+    const Tab(
+      child: Column(
+        children: [
+          Text('PARTY', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('DETAILS', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ),
+    const Tab(
+      child: Column(
+        children: [
+          Text('STAMP PAPER', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('DETAILS', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ),
+    const Tab(
+      child: Column(
+        children: [
+          Text('SIGNATORY', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('DETAILS', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ),
+  ];
+}

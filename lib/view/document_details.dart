@@ -1,6 +1,7 @@
 import 'package:document_fill_demo/controller/document_details_controller.dart';
 import 'package:document_fill_demo/controller/toggle_controller.dart';
 import 'package:document_fill_demo/party_details/view/party_details.dart';
+import 'package:document_fill_demo/signatory_details/view/signatory_details.dart';
 import 'package:document_fill_demo/utils/custom_appbar.dart';
 import 'package:document_fill_demo/utils/custom_dash_container.dart';
 import 'package:document_fill_demo/utils/custom_text.dart';
@@ -186,12 +187,7 @@ class DocumentDetailsPage extends StatelessWidget {
       case 'STAMP':
         return StampPaperDetails();
       case 'SIGNATORY':
-        return Center(
-            child: customText(
-                text: 'Signatory Details Page',
-                color: Colors.black,
-                fontSize: 10,
-                fontWeight: FontWeight.w700));
+        return PartySignatoryDetails();
       default:
         return Center(
             child: customText(
@@ -394,6 +390,8 @@ class DocumentDetailsPage extends StatelessWidget {
       ),
     );
   }
+
+  
 
   Widget _buildToggleSection({
     // required String title,

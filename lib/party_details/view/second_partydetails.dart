@@ -1,343 +1,179 @@
-import 'package:document_fill_demo/party_details/controller/party_details_controller.dart';
+import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
+import 'package:document_fill_demo/party_details/controller/second_party_detailscontroller.dart';
+import 'package:document_fill_demo/utils/custom_dropdown.dart';
+import 'package:document_fill_demo/utils/custom_elevated_button.dart';
 import 'package:document_fill_demo/utils/custom_text.dart';
 import 'package:document_fill_demo/utils/custom_textfield1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class SecondPartyDetailsCard extends StatefulWidget {
-  final FirstPartyDetailsController controller =
-      Get.put(FirstPartyDetailsController());
-  final List<String> proofs;
+class SecondPartyDetailsCard extends StatelessWidget {
   final VoidCallback onContinue;
 
   SecondPartyDetailsCard({
     super.key,
-    required this.proofs,
     required this.onContinue,
   });
 
-  @override
-  _SecondPartyDetailsCardState createState() => _SecondPartyDetailsCardState();
-}
+  final SecondPartyDetailscontroller controller =
+      Get.find<SecondPartyDetailscontroller>();
 
-class _SecondPartyDetailsCardState extends State<SecondPartyDetailsCard> {
-  bool formVisible = true; // Toggle form visibility
-  bool detailsSubmitted = false; // Flag to show submitted details
-
-  void toggleFormVisibility() {
-    setState(() {
-      formVisible = !formVisible;
-      detailsSubmitted = !formVisible; // Set flag to true when form is hidden
-    });
-  }
-
-  void editDetails() {
-    setState(() {
-      formVisible = true;
-      detailsSubmitted = false;
-    });
-  }
-
-  void deleteDetails() {
-    setState(() {
-      formVisible = true;
-      detailsSubmitted = false;
-      widget.controller.resetFields(); // Reset the form fields
-    });
-  }
+      final FirstPartyDetailsController firstController = Get.find<FirstPartyDetailsController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 327,
-      height: 450,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color.fromRGBO(141, 188, 211, 1)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            customText(
-              text: 'Add Second Party Details',
-              fontWeight: FontWeight.w600,
-              color: const Color.fromRGBO(78, 77, 77, 1),
-              fontSize: 14,
-            ),
-            const SizedBox(height: 10),
-            // Form visibility toggle
-            if (formVisible) ...[
-              // Form section
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() {
+      // bool isFormEnabled = firstController.isFirstPartyFormSubmitted.value;
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (controller.formVisible.value )
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 42,
-                      width: 293,
-                      child: appTextField(
-                        controller: widget.controller.nameController,
-                        labelText: 'Name *',
-                        context: context,
-                        cursorHeight: 12,
-                        enabled: true,
-                        focusNode: widget.controller.nameFocusNode,
-                        keyboardType: TextInputType.name,
-                        onChanged: (value) {
-                          widget.controller.model.name.value = value;
-                          widget.controller.isFormValidNow();
-                        },
-                      ),
+                    customText(
+                      text: 'Add Second Party Details',
+                      fontWeight: FontWeight.w600,
+                      color: const Color.fromRGBO(78, 77, 77, 1),
+                      fontSize: 14,
                     ),
-                    if (widget.controller.model.nameError.value.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: customText(
-                          text: widget.controller.model.nameError.value,
-                          color: Colors.red,
-                          fontSize: 12,
-                        ),
-                      ),
+
+                    IconButton(onPressed: controller.toggleFormVisibility, 
+                    icon: Icon(Icons.close),
+                    
+                    ),
                   ],
-                );
-              }),
-              const SizedBox(height: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Obx(
-                          () => Container(
-                            height: 42,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: const Color.fromRGBO(141, 188, 211, 1),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: DropdownButton<String>(
-                              focusColor: Colors.transparent,
-                              isExpanded: true,
-                              underline: const SizedBox(),
-                              value: widget.controller.model.selectedProof.value
-                                      .isEmpty
-                                  ? (widget.proofs.isNotEmpty
-                                      ? widget.proofs[0]
-                                      : null) // Ensure it's not empty
-                                  : widget.controller.model.selectedProof.value,
-                              items: widget.proofs.map((proof) {
-                                return DropdownMenuItem<String>(
-                                  value: proof,
-                                  child: customText(
-                                    text: proof,
-                                    color: const Color.fromRGBO(78, 77, 77, 1),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                if (value != null) {
-                                  widget.controller.model.selectedProof.value =
-                                      value;
-                                  widget.controller.isFormValidNow();
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        flex: 3,
-                        child: SizedBox(
-                          height: 42,
-                          child: appTextField(
-                            context: context,
-                            controller: widget.controller.idProofController,
-                            focusNode: widget.controller.idProofFocusNode,
-                            cursorHeight: 12,
-                            enabled: true,
-                            keyboardType: TextInputType.number,
-                            labelText: 'ID Proof Number *',
-                            onChanged: (value) {
-                              widget.controller.model.idProofNumber.value =
-                                  value;
-                              widget.controller.isFormValidNow();
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Obx(() {
-                    return widget.controller.model.idProofNumberError.value
-                            .isNotEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: customText(
-                              text: widget
-                                  .controller.model.idProofNumberError.value,
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          )
-                        : SizedBox.shrink();
-                  }),
-                ],
-              ),
+                ),
               const SizedBox(height: 10),
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 42,
-                      child: appTextField(
-                        context: context,
-                        controller: widget.controller.mobileNumberController,
-                        focusNode: widget.controller.mobileNumberFocusNode,
-                        cursorHeight: 12,
-                        enabled: true,
-                        keyboardType: TextInputType.phone,
-                        labelText: 'Mobile Number *',
-                        onChanged: (value) {
-                          widget.controller.model.mobileNumber.value = value;
-                          widget.controller.isFormValidNow();
-                        },
-                      ),
-                    ),
-                    if (widget
-                        .controller.model.mobileNumberError.value.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: customText(
-                          text: widget.controller.model.mobileNumberError.value,
-                          color: Colors.red,
-                          fontSize: 12,
-                        ),
-                      ),
-                  ],
-                );
-              }),
-              const SizedBox(height: 10),
-              Obx(() {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 42,
-                      child: appTextField(
-                        context: context,
-                        controller: widget.controller.pinCodeController,
-                        focusNode: widget.controller.pinCodeFocusNode,
-                        cursorHeight: 12,
-                        enabled: true,
-                        keyboardType: TextInputType.text,
-                        labelText: 'Pin Code *',
-                        onChanged: (value) {
-                          widget.controller.model.pinCode.value = value;
-                          widget.controller.isFormValidNow();
-                        },
-                      ),
-                    ),
-                    if (widget.controller.model.pinCodeError.value.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: customText(
-                          text: widget.controller.model.pinCodeError.value,
-                          color: Colors.red,
-                          fontSize: 12,
-                        ),
-                      ),
-                  ],
-                );
-              }),
-              const Spacer(),
-              Obx(
-                () => SizedBox(
+              if (controller.formVisible.value ) ...[
+                // Form Section
+                appTextField(
+                  controller: controller.nameController,
+                  labelText: 'Name *',
+                  context: context,
+                  cursorHeight: 12,
+                  enabled: true,
+                  errorMessage: controller.nameError.value.isNotEmpty
+                      ? controller.nameError.value
+                      : null,
+                  focusNode: controller.nameFocusNode,
+                  keyboardType: TextInputType.name,
+                  onChanged: (value) {
+                    controller.name.value = value;
+                    controller.validateNameField();
+                  },
+                ),
+                const SizedBox(height: 8),
+                customDropdown(
+                    context: context,
+                    controller: Get.find<SecondPartyDetailscontroller>()),
+                const SizedBox(height: 10),
+                appTextField(
+                  context: context,
+                  controller: controller.mobileNumberController,
+                  focusNode: controller.mobileNumberFocusNode,
+                  cursorHeight: 12,
+                  enabled: true,
+                  errorMessage: controller.mobileNumberError.value.isNotEmpty
+                      ? controller.mobileNumberError.value
+                      : null,
+                  keyboardType: TextInputType.phone,
+                  labelText: 'Mobile Number *',
+                  onChanged: (value) {
+                    controller.mobileNumber.value = value;
+                    controller.validatemobileNumberField();
+                  },
+                ),
+                const SizedBox(height: 10),
+                appTextField(
+                  context: context,
+                  controller: controller.pinCodeController,
+                  focusNode: controller.pinCodeFocusNode,
+                  cursorHeight: 12,
+                  enabled: true,
+                  keyboardType: TextInputType.number,
+                  errorMessage: controller.pinCodeError.value.isNotEmpty
+                      ? controller.pinCodeError.value
+                      : null,
+                  labelText: 'Pin Code *',
+                  onChanged: (value) {
+                    controller.pinCode.value = value;
+                    controller.validatepinCodeField();
+                  },
+                ),
+                // const Spacer(),
+                SizedBox(
+                  height: 60,
+                ),
+                SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
-                    onPressed: widget.controller.isFormValid.value
-                        ? () {
-                            widget.controller.model.saveDetails();
-                            Get.showSnackbar(GetSnackBar(
-                              message: 'Details saved locally in SQLite!',
-                              duration: Duration(seconds: 2),
-                            ));
-
-                            // Toggle visibility to show submitted details
-                            toggleFormVisibility();
-                          }
-                        : null,
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(
-                        widget.controller.isFormValid.value
-                            ? const Color.fromRGBO(55, 0, 179, 1)
-                            : Colors.grey,
-                      ),
-                    ),
-                    child: customText(
-                      text: 'Continue',
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: customElevatedButton(
+                    text: 'Continue',
+                    isEnabled: controller.isDetailsReadyToSubmit(),
+                    onPressed: () {
+                      controller.handleFormSubmission();
+                      controller.formVisible.value = false;
+                    },
                   ),
                 ),
-              ),
-            ] else ...[
-              Row(
-                children: [
-                  Icon(Icons.check_circle_outline, color: Colors.green),
-                  const SizedBox(width: 5),
-                  customText(
-                    text: 'First Party Details',
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(78, 77, 77, 1),
-                    fontSize: 14,
+              ] else  ...[
+                
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.check_circle_outline,
+                              color: Colors.green),
+                          const SizedBox(width: 5),
+                          customText(
+                            text: 'Second Party Details',
+                            fontWeight: FontWeight.w600,
+                            color: const Color.fromRGBO(78, 77, 77, 1),
+                            fontSize: 14,
+                          ),
+                        ],
+                      ),
+                      // const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: SvgPicture.asset('assets/icons/delete.svg'),
+                            onPressed: controller.deleteAllDetailsAndOpenForm,
+                            tooltip: 'Delete',
+                          ),
+                          IconButton(
+                            icon:
+                                SvgPicture.asset('assets/icons/edit_icon.svg'),
+                            onPressed: () {
+                              controller.formVisible.value = false;
+                              controller.editDetails();
+                            },
+                            tooltip: 'Edit',
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/delete.svg',
-                      color: Colors.black,
-                      height: 16, // Adjust size as needed
-                      width: 16,
-                    ),
-                    onPressed: deleteDetails,
-                    tooltip: 'Delete',
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/edit_icon.svg',
-                      color: Colors.black,
-                      height: 16, // Adjust size as needed
-                      width: 16,
-                    ),
-                    onPressed: editDetails,
-                    tooltip: 'Edit',
-                  ),
-                ],
-              ),
+                
+              ],
             ],
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

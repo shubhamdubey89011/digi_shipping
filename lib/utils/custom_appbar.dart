@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:document_fill_demo/utils/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,22 +14,34 @@ PreferredSizeWidget customAppBar({
   Widget? leading,
   PreferredSizeWidget? bottom,
   double elevation = 4.0,
+  bool automaticallyImplyLeading = false,
 }) {
-  return AppBar(toolbarHeight: 62,clipBehavior: Clip.antiAlias,titleSpacing: 10,
+  return AppBar(
+    toolbarHeight: 62,
+    clipBehavior: Clip.antiAlias,
+    titleSpacing: 10,
+    automaticallyImplyLeading: automaticallyImplyLeading,
     bottom: bottom,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
-          crossAxisAlignment:
-              centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          crossAxisAlignment: centerTitle
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            customText(text: title,color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
-            
+            customText(
+                text: title,
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w700),
             if (subtitle != null)
-            customText(text: subtitle ,color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
-              
+              customText(
+                  text: subtitle,
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700),
           ],
         ),
       ],
