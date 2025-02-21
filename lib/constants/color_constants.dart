@@ -2,26 +2,18 @@ import 'package:flutter/material.dart';
 
 class ColorConstants {
 
-  static const cardColor1 = Color(0xFFFFFFFF);
-  static const cardColor2 = Color(0xFFB6FCE8);
-  static const cardColor3 = Color(0xFFFAEAA7);
-  static const cardColor4 = Color(0xFFFBF3DB);
-  static const cardColor5 = Color(0xFFFCDBDB);
+  static const backgroundWhite = Color(0xFFFFFFFF);
+  static const backgroundColor = Color(0xF0EEFF);
+  static const backgroundYellow = Color.fromRGBO(255, 254, 209, 1);
+  static const fontGrey = Color.fromRGBO(78, 77, 77, 1);
+  static const fontDarkGrey = Color(0xFF4E4D4D);
+  static const fontLightGrey = Color.fromRGBO(78, 77, 77, 0.8);
+  static const checkMark = Colors.green;
+  static const fontBlack = Colors.black;
+  static const appBarColor = Color.fromRGBO(240, 238, 255, 1);
+  static const dropdownBorder = Color.fromRGBO(141, 188, 211, 1);
+  static const toggleBorder = Color(0xFF8DBCD3);
+  static const buttonColor = Color(0xFF3700B3);
 
-
-
-
-  static const linearGradientColor1 = [cardColor3,cardColor1,cardColor2];
-  static const linearGradientColor2 = [cardColor4,cardColor1,cardColor5];
+  
 }
-
-const purpleColor = Color.fromRGBO(46, 41, 78, 1);
-
-const white = Color.fromRGBO(255, 255, 255, 1);
-const lightGrey = Color.fromRGBO(239, 239, 239, 1);
-const darkGrey = Color.fromRGBO(112, 112, 112, 1);
-const fontGrey = Color.fromRGBO(73, 73, 73, 1);
-const textfieldGrey = Color.fromRGBO(209, 209, 209, 1);
-const golden = Color.fromRGBO(248, 181, 91, 1);
-const red = Color.fromRGBO(255, 115, 115, 1.0);
-const green = Color.fromRGBO(52, 168, 83, 1.0);

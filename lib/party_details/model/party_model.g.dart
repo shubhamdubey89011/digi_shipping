@@ -22,13 +22,14 @@ class PartyModelAdapter extends TypeAdapter<PartyModel> {
       mobileNumber: fields[2] as int,
       pinCode: fields[3] as int,
       selectedProof: fields[4] as String,
+      formType: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, PartyModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class PartyModelAdapter extends TypeAdapter<PartyModel> {
       ..writeByte(3)
       ..write(obj.pinCode)
       ..writeByte(4)
-      ..write(obj.selectedProof);
+      ..write(obj.selectedProof)
+      ..writeByte(5)
+      ..write(obj.formType);
   }
 
   @override

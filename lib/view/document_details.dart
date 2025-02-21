@@ -1,22 +1,19 @@
-import 'package:document_fill_demo/controller/document_details_controller.dart';
-import 'package:document_fill_demo/controller/toggle_controller.dart';
+import 'package:document_fill_demo/common_controller/document_details_controller.dart';
+import 'package:document_fill_demo/common_controller/toggle_controller.dart';
 import 'package:document_fill_demo/party_details/view/party_details.dart';
 import 'package:document_fill_demo/signatory_details/view/signatory_details.dart';
-import 'package:document_fill_demo/utils/custom_appbar.dart';
-import 'package:document_fill_demo/utils/custom_dash_container.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
-import 'package:document_fill_demo/utils/custom_toggle.dart';
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:document_fill_demo/view/instructions.dart';
 import 'package:document_fill_demo/view/stamp_paper_details.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 class ToggleController extends GetxController {
-  var selectedValue = 0.obs; // Observable integer for toggle options
-  var entityType = 0.obs; // Observable integer for entity type toggle
-
+  var selectedValue = 0.obs;
+  var entityType = 0.obs;
   void updateSelectedValue(int value) {
     selectedValue.value = value;
   }
@@ -91,7 +88,7 @@ class DocumentDetailsPage extends StatelessWidget {
         length: tabsData.length,
         child: Scaffold(
           backgroundColor: const Color.fromRGBO(240, 238, 255, 1),
-          appBar: customAppBar(
+          appBar: RmiWidgetHelper.rmiAppBar(
             elevation: 0,
             title: 'Digital',
             subtitle: 'Signature',
@@ -117,7 +114,7 @@ class DocumentDetailsPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          customText(
+                          RmiWidgetHelper.rmiText(
                             text: 'Simple Instructions',
                             color: Colors.black,
                             fontSize: 12,
@@ -140,25 +137,25 @@ class DocumentDetailsPage extends StatelessWidget {
                   ),
                   TabBar(
                     indicatorColor: Colors.blue,
-                    labelColor: Colors.blue,
-                    unselectedLabelColor: Colors.grey,
+                    labelColor: Colors.blue,automaticIndicatorColorAdjustment: true,
+                    unselectedLabelColor: Colors.grey,labelPadding: EdgeInsets.all(0),
                     tabs: tabsData
                         .map(
                           (tab) => Tab(
-                            // height: 40,
+                           
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                customText(
+                                RmiWidgetHelper.rmiText(
                                     text: tab['title']!,
                                     color: Colors.black,
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w700),
-                                customText(
+                                    fontWeight: FontWeight.w600),
+                                RmiWidgetHelper.rmiText(
                                     text: tab['subtitle']!,
                                     color: Colors.black,
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.w600),
                               ],
                             ),
                           ),
@@ -190,7 +187,7 @@ class DocumentDetailsPage extends StatelessWidget {
         return PartySignatoryDetails();
       default:
         return Center(
-            child: customText(
+            child: RmiWidgetHelper.rmiText(
                 text: 'Other Details Page',
                 color: Colors.black,
                 fontSize: 10,
@@ -214,7 +211,7 @@ class DocumentDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                customText(
+                RmiWidgetHelper.rmiText(
                   text: 'Upload your Agreement to Proceed *',
                   color: Colors.black,
                   fontSize: 14,
@@ -247,14 +244,14 @@ class DocumentDetailsPage extends StatelessWidget {
                       print('File selection cancelled.');
                     }
                   },
-                  child: DashedBorderContainer(
+                  child: RmiWidgetHelper.rmiDashedBorderContainer(
                     child: Container(
                       alignment: Alignment.center,
                       height: 50,
                       width: 294,
                       child: Obx(() {
                         // Use Obx to reactively display the file name
-                        return customText(
+                        return RmiWidgetHelper.rmiText(
                           text:
                               _controller.fileName.value ?? 'Tap to upload PDF',
                           color: Color.fromRGBO(19, 110, 248, 1),
@@ -268,7 +265,7 @@ class DocumentDetailsPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                customText(
+                RmiWidgetHelper.rmiText(
                   text: 'Please upload a PDF file between 50 KB and 1024 KB.',
                   color: Color.fromRGBO(73, 69, 79, 1),
                   fontSize: 8,
@@ -346,7 +343,7 @@ class DocumentDetailsPage extends StatelessWidget {
                   items: states
                       .map((state) => DropdownMenuItem<String>(
                           value: state,
-                          child: customText(
+                          child: RmiWidgetHelper.rmiText(
                               text: state,
                               color: Colors.black,
                               fontSize: 14,
@@ -379,7 +376,7 @@ class DocumentDetailsPage extends StatelessWidget {
               onPressed: () {
                 // Get.to(() => EntityDetails());
               },
-              child: customText(
+              child: RmiWidgetHelper.rmiText(
                   text: 'Continue',
                   color: Colors.white,
                   fontSize: 14,
@@ -390,8 +387,6 @@ class DocumentDetailsPage extends StatelessWidget {
       ),
     );
   }
-
-  
 
   Widget _buildToggleSection({
     // required String title,
@@ -405,7 +400,7 @@ class DocumentDetailsPage extends StatelessWidget {
         color: Color.fromRGBO(242, 244, 245, 1),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: CustomToggleButtons(
+      child: RmiWidgetHelper.rmiToggleButton(
         labels: labels,
         controller: controller,
         onValueChanged: onValueChanged,

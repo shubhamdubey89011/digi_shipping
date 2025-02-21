@@ -2,7 +2,7 @@
 
 class PartyDetails {
   String name;
-  int idProofNumber;
+  String idProofNumber;
   int mobileNumber;
   int pinCode;
   String selectedProof;

@@ -57,3 +57,10 @@ class AppSpecification {
   static double cursorHeight = 15.0;
 
 }
+
+class rmiFontWeight{//change it to camel case
+  static FontWeight headline =FontWeight.w600;
+  // static FontWeight headline =FontWeight.w600;
+  // static FontWeight headline =FontWeight.w600;
+}
+//use container as rmiContainer

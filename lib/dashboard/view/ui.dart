@@ -1,5 +1,5 @@
 import 'package:document_fill_demo/constants/color_constants.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -94,15 +94,15 @@ Widget buildPromotion(String text, Gradient gradient, String secondText,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    customText(text: text),
+                    RmiWidgetHelper.rmiText(text: text),
                     SizedBox(
                       width: 30,
                     ),
                     svg,
                   ],
                 ),
-                customText(text: secondText),
-                customText(text: thirdText),
+                RmiWidgetHelper.rmiText(text: secondText),
+                RmiWidgetHelper.rmiText(text: thirdText),
               ],
             ),
           ),

@@ -1,5 +1,5 @@
-import 'package:document_fill_demo/utils/custom_appbar.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
+
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 
 class Instructions extends StatelessWidget {
@@ -8,7 +8,7 @@ class Instructions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(elevation: 0,
+      appBar: RmiWidgetHelper.rmiAppBar(elevation: 0,
         title: 'Simple',
         subtitle: 'Instructions',
         centerTitle: false,
@@ -27,7 +27,7 @@ class Instructions extends StatelessWidget {
               ),
               const SizedBox(width: 8), // Space between bullet and text
               Expanded(
-                child: customText(
+                child: RmiWidgetHelper.rmiText(
                     text:
                         'Prepare the Document: Ensure the agreement file is in the correct format (PDF)',
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -44,7 +44,7 @@ class Instructions extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: customText(
+                child: RmiWidgetHelper.rmiText(
                     text:
                         'Upload the File: Select the agreement document and upload it to the system.',
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -61,7 +61,7 @@ class Instructions extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: customText(
+                child: RmiWidgetHelper.rmiText(
                     text:
                         'Verify Details: Review the document and confirm all required fields.',
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -78,7 +78,7 @@ class Instructions extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: customText(
+                child: RmiWidgetHelper.rmiText(
                     text:
                         'Authenticate: Complete identity verification via OTP or other methods.',
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -95,7 +95,7 @@ class Instructions extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: customText(
+                child: RmiWidgetHelper.rmiText(
                     text:
                         'E-Sign & Submit: Apply your digital signature and finalize the process.',
                     style: TextStyle(fontWeight: FontWeight.bold)),

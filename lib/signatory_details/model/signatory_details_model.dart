@@ -2,12 +2,12 @@
 
 class SignatoryDetailsModel {
   String name;
-  int idProofNumber;
+  String idProofNumber;
   int mobileNumber;
   String email;
   String selectedProof;
   String relationship;
-  // String dob;
+  String dob;
   String gender;
   String selectedParty;
 
@@ -18,7 +18,7 @@ class SignatoryDetailsModel {
     required this.email,
     required this.selectedProof,
     required this.relationship,
-    // required this.dob,
+    required this.dob,
     required this.gender,
     required this.selectedParty,
   });
@@ -31,7 +31,7 @@ class SignatoryDetailsModel {
       'email': email,
       'selectedProof': selectedProof,
       'relationship': relationship,
-      // 'dob': dob,
+      'dob': dob,
       'gender': gender,
       'selectedParty': selectedParty,
     };
@@ -45,7 +45,7 @@ class SignatoryDetailsModel {
       email: map['email'],
       selectedProof: map['selectedProof'],
       relationship: map['relationship'],
-      // dob: map['dob'],
+      dob: map['dob'],
       gender: map['gender'],
       selectedParty: map['selectedParty'],
     );

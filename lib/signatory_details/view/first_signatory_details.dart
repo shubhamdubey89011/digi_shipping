@@ -1,285 +1,334 @@
-import 'package:document_fill_demo/controller/toggle_controller.dart';
+import 'package:document_fill_demo/common_controller/toggle_controller.dart';
+import 'package:document_fill_demo/constants/assets_constants.dart';
+import 'package:document_fill_demo/constants/color_constants.dart';
+import 'package:document_fill_demo/constants/constant_list.dart';
+import 'package:document_fill_demo/constants/dimensions.dart';
+import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
+import 'package:document_fill_demo/signatory_details/controller/second_signatory_controller.dart';
 import 'package:document_fill_demo/signatory_details/controller/signatory_controller.dart';
 import 'package:document_fill_demo/signatory_details/view/secod_signatory_details.dart';
-import 'package:document_fill_demo/utils/custom_dropdown.dart';
-import 'package:document_fill_demo/utils/custom_elevated_button.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
-import 'package:document_fill_demo/utils/custom_textfield1.dart';
-import 'package:document_fill_demo/utils/custom_toggle_section.dart';
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class FirstSignatoryDetails extends StatelessWidget {
   final VoidCallback onContinue;
+
   FirstSignatoryDetails({super.key, required this.onContinue});
 
   final SignatoryController controller = Get.find<SignatoryController>();
-  final CustomToggleController genderController = Get.put(
-    CustomToggleController(),
-  );
+  final PartyDetailsController partyController =
+      Get.find<PartyDetailsController>();
+  final CustomToggleController genderController =
+      Get.put(CustomToggleController());
+
+  final SecondSignatoryController secondSignatoryController =
+      Get.find<SecondSignatoryController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Column(
         children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (controller.formVisible.value)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        customText(
-                          text: 'Signatory Details',
-                          fontWeight: FontWeight.w600,
-                          color: const Color.fromRGBO(78, 77, 77, 1),
-                          fontSize: 14,
-                        ),
-                        IconButton(
-                          onPressed: controller.toggleFormVisibility,
-                          icon: Icon(Icons.close),
-                        ),
-                      ],
-                    ),
-                  const SizedBox(height: 20),
-                  if (controller.formVisible.value) ...[
-                    // Form Section
-                    appTextField(
-                      controller: controller.nameController,
-                      labelText: 'Name *',
-                      context: context,
-                      cursorHeight: 12,
-                      enabled: true,
-                      errorMessage: controller.nameError.value.isNotEmpty
-                          ? controller.nameError.value
-                          : null,
-                      focusNode: controller.nameFocusNode,
-                      keyboardType: TextInputType.name,
-                      onChanged: (value) {
-                        controller.name.value = value;
-                        controller.validateNameField();
-                      },
-                    ),
-                    const SizedBox(height: 8),
-                    customDropdown(
-                        context: context,
-                        controller: Get.find<SignatoryController>()),
-                    const SizedBox(height: 10),
-                    appTextField(
-                      context: context,
-                      controller: controller.emailController,
-                      focusNode: controller.emailFocusNode,
-                      cursorHeight: 12,
-                      enabled: true,
-                      errorMessage: controller.emailError.value.isNotEmpty
-                          ? controller.emailError.value
-                          : null,
-                      keyboardType: TextInputType.emailAddress,
-                      labelText: 'Email *',
-                      onChanged: (value) {
-                        controller.email.value = value;
-                        controller.validateEmail();
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    appTextField(
-                      context: context,
-                      controller: controller.mobileNumberController,
-                      focusNode: controller.mobileNumberFocusNode,
-                      cursorHeight: 12,
-                      enabled: true,
-                      errorMessage:
-                          controller.mobileNumberError.value.isNotEmpty
-                              ? controller.mobileNumberError.value
-                              : null,
-                      keyboardType: TextInputType.phone,
-                      labelText: 'Mobile Number *',
-                      onChanged: (value) {
-                        controller.mobileNumber.value = value;
-                        controller.validatemobileNumberField();
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    appTextField(
-                      context: context,
-                      controller: controller.relationshipController,
-                      focusNode: controller.relationshipFocusNode,
-                      cursorHeight: 12,
-                      enabled: true,
-                      keyboardType: TextInputType.text,
-                      errorMessage:
-                          controller.relationshipError.value.isNotEmpty
-                              ? controller.relationshipError.value
-                              : null,
-                      labelText: 'Relationship of the Party *',
-                      onChanged: (value) {
-                        controller.relationship.value = value;
-                        controller.validateRelationship();
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Container(
-                          height: 42,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(color: Color(0xFF8DBCD3), width: 1),
-                          ),
-                          child: IconButton(
-                            onPressed: () async {
-                              DateTime? selectedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1900),
-                                lastDate: DateTime(2100),
-                              );
-
-                              if (selectedDate != null) {
-                                print(
-                                    "Selected date: ${selectedDate.toLocal()}");
-                              }
-                            },
-                            icon: Icon(Icons.calendar_month),
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            customText(
-                                text: 'Date of Birth of the signatory or ',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4E4D4D)),
-                            customText(
-                                text: 'date of incorporation of the ',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4E4D4D)),
-                            customText(
-                                text: 'company in case of non-individual ',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4E4D4D)),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    customDropdown2(
-                        context: context,
-                        controller: Get.find<SignatoryController>()),
-                    const SizedBox(height: 15),
-                    buildToggleSection(
-                      context: context,
-                      controller: genderController,
-                      labels: ['Male', 'Female'],
-                      onValueChanged: (index) {
-                        controller.maleorfemale.value = index;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ] else ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(Icons.check_circle_outline,
-                                color: Colors.green),
-                            const SizedBox(width: 5),
-                            customText(
-                              text: 'Signatory Details',
-                              fontWeight: FontWeight.w600,
-                              color: const Color.fromRGBO(78, 77, 77, 1),
-                              fontSize: 14,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: SvgPicture.asset('assets/icons/delete.svg'),
-                              onPressed: controller.deleteAllDetailsAndOpenForm,
-                              tooltip: 'Delete',
-                            ),
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                  'assets/icons/edit_icon.svg'),
-                              onPressed: () {
-                                controller.formVisible.value = false;
-                                controller.editDetails();
-                              },
-                              tooltip: 'Edit',
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 25),
-          if (controller.secondFormVisible.value)
-            SecondSignatoryDetails(onContinue: onContinue),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                customText(
-                  text: 'Add Signatory Details',
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                IconButton(
-                  onPressed: controller.toggleSecondForm,
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.black,
+          RmiWidgetHelper.rmiAnimatedContainer(
+            child: RmiWidgetHelper.rmiColumn(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              childrens: [
+                Visibility(
+                  visible: controller.formVisible.value,
+                  child: RmiWidgetHelper.rmiText(
+                    text: AppStrings.firstSignatoryDetails,
+                    color: ColorConstants.fontGrey,
                   ),
                 ),
+                RmiWidgetHelper.verticalSpacer(10),
+                if (controller.formVisible.value) ...[
+                  RmiWidgetHelper.appTextField(
+                    controller: controller.nameController,
+                    labelText: 'Name *',
+                    context: context,
+                    cursorHeight: 12,
+                    enabled: true,
+                    errorMessage: controller.nameError.value.isNotEmpty
+                        ? controller.nameError.value
+                        : null,
+                    focusNode: controller.nameFocusNode,
+                    keyboardType: TextInputType.name,
+                    onChanged: (value) {
+                      controller.name.value = value;
+                      controller.validateNameField();
+                    },
+                  ),
+                  RmiWidgetHelper.verticalSpacer(8),
+                  RmiWidgetHelper.rmiRow(childrens: [
+                    Expanded(
+                      flex: 2,
+                      child: RmiWidgetHelper.rmiDropDown1(
+                        value: controller.selectedProof.value.toString(),
+                        onDropDownChanged: (value) {
+                          print(value);
+
+                          if (value != null) {
+                            controller.selectedProof.value = value;
+                            controller.validateidProofNumberField();
+                          }
+                          debugPrint(
+                              "Error: ${controller.idProofNumberError.value}");
+                        },
+                        items: proofs,
+                        error: controller.idProofNumberError.value.isNotEmpty,
+                        errorMessage: controller.idProofNumberError.value,
+                      ),
+                    ),
+                    RmiWidgetHelper.horizontalSpacer(10),
+                    Expanded(
+                      flex: 3,
+                      child: RmiWidgetHelper.appTextField(
+                        focusNode: controller.idProofFocusNode,
+                        context: context,
+                        controller: controller.idProofController,
+                        onChanged: (value) {
+                          controller.idProofNumber.value = value.toString();
+                          controller.validateidProofNumberField();
+                        },
+                        hintText: 'ID Proof*',
+                        labelText: 'ID Proof Number *',
+                        textCapitalization: TextCapitalization.characters,
+                        errorMessage:
+                            controller.idProofNumberError.value.isNotEmpty
+                                ? controller.idProofNumberError.value
+                                : null,
+                      ),
+                    ),
+                  ]),
+                  RmiWidgetHelper.verticalSpacer(10),
+                  RmiWidgetHelper.appTextField(
+                    context: context,
+                    controller: controller.emailController,
+                    focusNode: controller.emailFocusNode,
+                    cursorHeight: 12,
+                    enabled: true,
+                    errorMessage: controller.emailError.value.isNotEmpty
+                        ? controller.emailError.value
+                        : null,
+                    keyboardType: TextInputType.emailAddress,
+                    labelText: 'Email *',
+                    onChanged: (value) {
+                      controller.email.value = value;
+                      controller.validateEmail();
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  RmiWidgetHelper.appTextField(
+                    context: context,
+                    controller: controller.mobileNumberController,
+                    focusNode: controller.mobileNumberFocusNode,
+                    cursorHeight: 12,
+                    enabled: true,
+                    errorMessage: controller.mobileNumberError.value.isNotEmpty
+                        ? controller.mobileNumberError.value
+                        : null,
+                    keyboardType: TextInputType.phone,
+                    labelText: 'Mobile Number *',
+                    onChanged: (value) {
+                      controller.mobileNumber.value = value;
+                      controller.validatemobileNumberField();
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  RmiWidgetHelper.appTextField(
+                    context: context,
+                    controller: controller.relationshipController,
+                    focusNode: controller.relationshipFocusNode,
+                    cursorHeight: 12,
+                    enabled: true,
+                    keyboardType: TextInputType.text,
+                    errorMessage: controller.relationshipError.value.isNotEmpty
+                        ? controller.relationshipError.value
+                        : null,
+                    labelText: 'Relationship of the Party *',
+                    onChanged: (value) {
+                      controller.relationship.value = value;
+                      controller.validateRelationship();
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  RmiWidgetHelper.rmiRow(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    childrens: [
+                      Container(
+                        height: SizeConfig.height(context, 0.05),
+                        width: SizeConfig.width(context, 0.12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: ColorConstants.toggleBorder, width: 1),
+                        ),
+                        child: RmiWidgetHelper.rmiIconButton(
+                          onPressed: () async {
+                            await controller.pickDate(context);
+                          },
+                          icon: Icon(Icons.calendar_month),
+                        ),
+                      ),
+                      RmiWidgetHelper.horizontalSpacer(20),
+                      Obx(() {
+                        return controller.selectedDate.value == null
+                            ? RmiWidgetHelper.rmiColumn(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                childrens: [
+                                  RmiWidgetHelper.rmiText(
+                                    text: 'Date of Birth of the signatory or ',
+                                    color: ColorConstants.fontDarkGrey,
+                                  ),
+                                  RmiWidgetHelper.rmiText(
+                                    text: 'date of incorporation of the ',
+                                    color: ColorConstants.fontDarkGrey,
+                                  ),
+                                  RmiWidgetHelper.rmiText(
+                                    text: 'company in case of non-individual ',
+                                    color: ColorConstants.fontDarkGrey,
+                                  ),
+                                ],
+                              )
+                            : RmiWidgetHelper.rmiContainer(
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: ColorConstants.toggleBorder,
+                                      width: 1),
+                                  color: ColorConstants.backgroundWhite,
+                                ),
+                                child: RmiWidgetHelper.rmiText(
+                                  text:
+                                      "${controller.selectedDate.value!.day}/${controller.selectedDate.value!.month}/${controller.selectedDate.value!.year}",
+                                  color: ColorConstants.fontDarkGrey,
+                                ),
+                              );
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  RmiWidgetHelper.rmiDropDown1(
+                    value: controller.selectedParty.value.toString(),
+                    hint: RmiWidgetHelper.rmiText(text: 'Party Type*'),
+                    onDropDownChanged: (value) {
+                      print("Party type  $value");
+
+                      if (value != null) {
+                        controller.selectedParty.value = value;
+                      }
+                    },
+                    items: party,
+                    error: controller.partyError.value.isNotEmpty,
+                    errorMessage: controller.partyError.value,
+                  ),
+                  const SizedBox(height: 15),
+                  RmiWidgetHelper.buildToggleSection(
+                    context: context,
+                    controller: genderController,
+                    labels: ['Male', 'Female'],
+                    onValueChanged: (index) {
+                      controller.maleorfemale.value = index;
+                    },
+                  ),
+                  RmiWidgetHelper.verticalSpacer(20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: RmiWidgetHelper.customElevatedButton(
+                      context: context,
+                      text: AppStrings.continueButton,
+                      color: ColorConstants.buttonColor,
+                      textColor: ColorConstants.backgroundWhite,
+                      isEnabled: controller.isDetailsReadyToSubmit(),
+                      onPressed: () {
+                        controller.handleFormSubmission();
+                        controller.formVisible.value = false;
+                      },
+                    ),
+                  ),
+                ] else ...[
+                  Visibility(
+                    visible: !controller.formVisible.value,
+                    child: RmiWidgetHelper.rmiRow(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        childrens: [
+                          const Icon(
+                            Icons.check_circle_outline,
+                            color: ColorConstants.checkMark,
+                          ),
+                          RmiWidgetHelper.rmiText(
+                            text: AppStrings.firstSignatoryDetails,
+                            color: ColorConstants.fontGrey,
+                          ),
+                          RmiWidgetHelper.horizontalSpacer(40.0),
+                          RmiWidgetHelper.rmiIconButton(
+                            icon: SvgPicture.asset(
+                              AssetsConstants.delete,
+                            ),
+                            onPressed: () {
+                              controller.deleteAllDetailsAndOpenForm();
+                              controller.clearDate();
+                              controller.maleorfemale.value = -1;
+                              controller.update();
+                            },
+                          ),
+                          RmiWidgetHelper.rmiIconButton(
+                            icon: SvgPicture.asset(AssetsConstants.edit),
+                            onPressed: () {
+                              controller.formVisible.value = true;
+                              controller.isEditing.value = true;
+                              controller.editDetails();
+                            },
+                          ),
+                        ]),
+                  ),
+                ],
               ],
             ),
           ),
-          const SizedBox(height: 25),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: customElevatedButton(
-              text: 'Continue',
-              isEnabled: controller.isDetailsReadyToSubmit(),
-              onPressed: () {
-                controller.handleFormSubmission();
-                controller.formVisible.value = false;
-              },
-            ),
-          ),
+          // RmiWidgetHelper.verticalSpacer(20),
+          // Obx(() {
+          //   return RmiWidgetHelper.rmiColumn(
+          //     childrens: [
+          //       if (secondSignatoryController.hasData.value)
+          //         SecondSignatoryDetails(
+          //           onContinue: onContinue,
+          //         ),
+          //       RmiWidgetHelper.verticalSpacer(20),
+          //       RmiWidgetHelper.customElevatedButton(
+          //         color: ColorConstants.backgroundWhite,
+          //         textColor: ColorConstants.fontDarkGrey,
+          //         context: context,
+          //         alignment: Alignment.centerLeft,
+          //         text: "",
+          //         isEnabled: secondSignatoryController.formVisible.value,
+          //         onPressed: () {
+          //           secondSignatoryController.toggleFormVisibility();
+          //         },
+          //         child: Row(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             RmiWidgetHelper.rmiText(
+          //                 text: "Add Signatory Details",
+          //                 color: ColorConstants.fontDarkGrey),
+          //             Icon(
+          //               Icons.add,
+          //               color: ColorConstants.fontDarkGrey,
+          //               size: 25,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   );
+          // })
         ],
       );
     });

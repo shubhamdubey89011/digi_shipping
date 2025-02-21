@@ -1,6 +1,5 @@
-import 'package:document_fill_demo/utils/custom_appbar.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
-import 'package:document_fill_demo/utils/custom_textfield.dart';
+
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -41,7 +40,7 @@ class StampPaperDetails extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      customText(
+                      RmiWidgetHelper.rmiText(
                         text: 'Stamp Paper Details',
                         color: Color.fromRGBO(78, 77, 77, 1),
                         fontSize: 14,
@@ -82,7 +81,7 @@ class StampPaperDetails extends StatelessWidget {
                                 .map(
                                   (state) => DropdownMenuItem<String>(
                                     value: state,
-                                    child: customText(
+                                    child: RmiWidgetHelper.rmiText(
                                       text: state,
                                       color: Color.fromRGBO(78, 77, 77, 1),
                                       fontSize: 14,
@@ -105,7 +104,7 @@ class StampPaperDetails extends StatelessWidget {
                       SizedBox(
                         height: 42,
                         width: 291,
-                        child: customTextField(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Consideration Price*',
                             color: Color.fromRGBO(78, 77, 77, 1),
                             fontSize: 14,
@@ -117,7 +116,7 @@ class StampPaperDetails extends StatelessWidget {
                       SizedBox(
                         height: 42,
                         width: 291,
-                        child: customTextField(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Stamp Duty Price*',
                             color: Color.fromRGBO(78, 77, 77, 1),
                             fontSize: 14,
@@ -129,7 +128,7 @@ class StampPaperDetails extends StatelessWidget {
                       SizedBox(
                         height: 42,
                         width: 291,
-                        child: customTextField(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Stamp duty Paid by*',
                             color: Color.fromRGBO(78, 77, 77, 1),
                             fontSize: 14,
@@ -141,7 +140,7 @@ class StampPaperDetails extends StatelessWidget {
                       SizedBox(
                         height: 42,
                         width: 291,
-                        child: customTextField(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Description Of the Agreement*',
                             color: Color.fromRGBO(78, 77, 77, 1),
                             fontSize: 14,
@@ -165,7 +164,7 @@ class StampPaperDetails extends StatelessWidget {
                               const Color.fromRGBO(55, 0, 179, 1),
                             ),
                           ),
-                          child: customText(
+                          child: RmiWidgetHelper.rmiText(
                               text: 'Continue',
                               color: Colors.white,
                               fontSize: 14,

@@ -1,8 +1,5 @@
-import 'package:document_fill_demo/controller/entity_controller.dart';
-import 'package:document_fill_demo/utils/custom_appbar.dart';
-import 'package:document_fill_demo/utils/custom_material.dart';
-import 'package:document_fill_demo/utils/custom_text.dart';
-import 'package:document_fill_demo/utils/custom_textfield.dart';
+import 'package:document_fill_demo/common_controller/entity_controller.dart';
+import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,10 +23,10 @@ class EntityDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
-                    customText(
+                    RmiWidgetHelper.rmiText(
                       text: 'First and Second Party details are mandatory.',
                     ),
-                    customText(
+                    RmiWidgetHelper.rmiText(
                       text: 'These details will be printed on the stamp papper',
                     ),
                   ],
@@ -58,53 +55,53 @@ class EntityDetails extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                           labelText: 'Name *',
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                          child: customTextField(labelText: 'Email *')),
+                      RmiWidgetHelper.rmiMaterial(
+                          child: RmiWidgetHelper.rmiTextField(labelText: 'Email *')),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(labelText: 'Contact Number *'),
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(labelText: 'Contact Number *'),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                          child: customTextField(labelText: 'PAN Number *')),
+                      RmiWidgetHelper.rmiMaterial(
+                          child: RmiWidgetHelper.rmiTextField(labelText: 'PAN Number *')),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                           labelText: 'Legal Constitution of the Party *',
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                          child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                          child: RmiWidgetHelper.rmiTextField(
                               labelText: 'Date Of Incorporation *')),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Registered Office Address *'),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Registered Office Address Pincode *'),
                       ),
                       SizedBox(
@@ -138,27 +135,27 @@ class EntityDetails extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                          child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                          child: RmiWidgetHelper.rmiTextField(
                               labelText: 'Communication Address *')),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Communication Address Pincode *'),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
-                        child: customTextField(
+                      RmiWidgetHelper.rmiMaterial(
+                        child: RmiWidgetHelper.rmiTextField(
                             labelText: 'Communication Address Pincode *'),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      customMaterial(
+                      RmiWidgetHelper.rmiMaterial(
                           child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(

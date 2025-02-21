@@ -7,20 +7,31 @@ class PartyModel extends HiveObject {
   String name;
 
   @HiveField(1)
-  int? idProofNumber;
+  int idProofNumber;
 
   @HiveField(2)
   int mobileNumber;
 
   @HiveField(3)
-  int? pinCode;
+  int pinCode;
 
   @HiveField(4)
-  String? selectedProof;
+  String selectedProof;
 
-  PartyModel({required this.name,
-     this.idProofNumber,
+  @HiveField(5) // New field
+  String? formType; // Indicates which form this data belongs to ('form1' or 'form2')
+
+  PartyModel({
+    required this.name,
+   required this.idProofNumber,
     required this.mobileNumber,
-     this.pinCode,
-     this.selectedProof,});
+   required this.pinCode,
+   required this.selectedProof,
+     this.formType,
+  });
+
+  @override
+  String toString() {
+    return 'PartyModel(name: $name, idProofNumber: $idProofNumber, mobileNumber: $mobileNumber, pinCode: $pinCode, selectedProof: $selectedProof)';
+  }
 }
