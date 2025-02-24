@@ -23,314 +23,296 @@ class FirstSignatoryDetails extends StatelessWidget {
   final CustomToggleController genderController =
       Get.put(CustomToggleController());
 
-  final SecondSignatoryController secondSignatoryController =
+  final SecondSignatoryController secondController =
       Get.find<SecondSignatoryController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Column(
-        children: [
-          RmiWidgetHelper.rmiAnimatedContainer(
-            child: RmiWidgetHelper.rmiColumn(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              childrens: [
-                Visibility(
-                  visible: controller.formVisible.value,
-                  child: RmiWidgetHelper.rmiText(
-                    text: AppStrings.firstSignatoryDetails,
-                    color: ColorConstants.fontGrey,
-                  ),
+      return Column(children: [
+        RmiWidgetHelper.rmiAnimatedContainer(
+          child: RmiWidgetHelper.rmiColumn(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            childrens: [
+              Visibility(
+                visible: controller.formVisible.value,
+                child: RmiWidgetHelper.rmiText(
+                  text: AppStrings.firstSignatoryDetails,
+                  color: ColorConstants.fontGrey,
                 ),
-                RmiWidgetHelper.verticalSpacer(10),
-                if (controller.formVisible.value) ...[
-                  RmiWidgetHelper.appTextField(
-                    controller: controller.nameController,
-                    labelText: 'Name *',
-                    context: context,
-                    cursorHeight: 12,
-                    enabled: true,
-                    errorMessage: controller.nameError.value.isNotEmpty
-                        ? controller.nameError.value
-                        : null,
-                    focusNode: controller.nameFocusNode,
-                    keyboardType: TextInputType.name,
-                    onChanged: (value) {
-                      controller.name.value = value;
-                      controller.validateNameField();
-                    },
-                  ),
-                  RmiWidgetHelper.verticalSpacer(8),
-                  RmiWidgetHelper.rmiRow(childrens: [
-                    Expanded(
-                      flex: 2,
-                      child: RmiWidgetHelper.rmiDropDown1(
-                        value: controller.selectedProof.value.toString(),
-                        onDropDownChanged: (value) {
-                          print(value);
+              ),
+              RmiWidgetHelper.verticalSpacer(10),
+              if (controller.formVisible.value) ...[
+                RmiWidgetHelper.appTextField(
+                  controller: controller.nameController,
+                  labelText: 'Name *',
+                  context: context,
+                  cursorHeight: 12,
+                  enabled: true,
+                  errorMessage: controller.nameError.value.isNotEmpty
+                      ? controller.nameError.value
+                      : null,
+                  focusNode: controller.nameFocusNode,
+                  keyboardType: TextInputType.name,
+                  onChanged: (value) {
+                    controller.name.value = value;
+                    controller.validateNameField();
+                  },
+                ),
+                RmiWidgetHelper.verticalSpacer(8),
+                RmiWidgetHelper.rmiRow(childrens: [
+                  Expanded(
+                    flex: 2,
+                    child: RmiWidgetHelper.rmiDropDown1(
+                      value: controller.selectedProof.value.toString(),
+                      onDropDownChanged: (value) {
+                        print(value);
 
-                          if (value != null) {
-                            controller.selectedProof.value = value;
-                            controller.validateidProofNumberField();
-                          }
-                          debugPrint(
-                              "Error: ${controller.idProofNumberError.value}");
-                        },
-                        items: proofs,
-                        error: controller.idProofNumberError.value.isNotEmpty,
-                        errorMessage: controller.idProofNumberError.value,
-                      ),
-                    ),
-                    RmiWidgetHelper.horizontalSpacer(10),
-                    Expanded(
-                      flex: 3,
-                      child: RmiWidgetHelper.appTextField(
-                        focusNode: controller.idProofFocusNode,
-                        context: context,
-                        controller: controller.idProofController,
-                        onChanged: (value) {
-                          controller.idProofNumber.value = value.toString();
+                        if (value != null) {
+                          controller.selectedProof.value = value;
                           controller.validateidProofNumberField();
+                        }
+                        debugPrint(
+                            "Error: ${controller.idProofNumberError.value}");
+                      },
+                      items: proofs,
+                      error: controller.idProofNumberError.value.isNotEmpty,
+                      errorMessage: controller.idProofNumberError.value,
+                    ),
+                  ),
+                  RmiWidgetHelper.horizontalSpacer(10),
+                  Expanded(
+                    flex: 3,
+                    child: RmiWidgetHelper.appTextField(
+                      focusNode: controller.idProofFocusNode,
+                      context: context,
+                      controller: controller.idProofController,
+                      onChanged: (value) {
+                        controller.idProofNumber.value = value.toString();
+                        controller.validateidProofNumberField();
+                      },
+                      hintText: 'ID Proof*',
+                      labelText: 'ID Proof Number *',
+                      textCapitalization: TextCapitalization.characters,
+                      errorMessage:
+                          controller.idProofNumberError.value.isNotEmpty
+                              ? controller.idProofNumberError.value
+                              : null,
+                    ),
+                  ),
+                ]),
+                RmiWidgetHelper.verticalSpacer(10),
+                RmiWidgetHelper.appTextField(
+                  context: context,
+                  controller: controller.emailController,
+                  focusNode: controller.emailFocusNode,
+                  cursorHeight: 12,
+                  enabled: true,
+                  errorMessage: controller.emailError.value.isNotEmpty
+                      ? controller.emailError.value
+                      : null,
+                  keyboardType: TextInputType.emailAddress,
+                  labelText: 'Email *',
+                  onChanged: (value) {
+                    controller.email.value = value;
+                    controller.validateEmail();
+                  },
+                ),
+                const SizedBox(height: 10),
+                RmiWidgetHelper.appTextField(
+                  context: context,
+                  controller: controller.mobileNumberController,
+                  focusNode: controller.mobileNumberFocusNode,
+                  cursorHeight: 12,
+                  enabled: true,
+                  errorMessage: controller.mobileNumberError.value.isNotEmpty
+                      ? controller.mobileNumberError.value
+                      : null,
+                  keyboardType: TextInputType.phone,
+                  labelText: 'Mobile Number *',
+                  onChanged: (value) {
+                    controller.mobileNumber.value = value;
+                    controller.validatemobileNumberField();
+                  },
+                ),
+                const SizedBox(height: 10),
+                RmiWidgetHelper.appTextField(
+                  context: context,
+                  controller: controller.relationshipController,
+                  focusNode: controller.relationshipFocusNode,
+                  cursorHeight: 12,
+                  enabled: true,
+                  keyboardType: TextInputType.text,
+                  errorMessage: controller.relationshipError.value.isNotEmpty
+                      ? controller.relationshipError.value
+                      : null,
+                  labelText: 'Relationship of the Party *',
+                  onChanged: (value) {
+                    controller.relationship.value = value;
+                    controller.validateRelationship();
+                  },
+                ),
+                const SizedBox(height: 15),
+                RmiWidgetHelper.rmiRow(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  childrens: [
+                    Container(
+                      height: SizeConfig.height(context, 0.05),
+                      width: SizeConfig.width(context, 0.12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: ColorConstants.toggleBorder, width: 1),
+                      ),
+                      child: RmiWidgetHelper.rmiIconButton(
+                        onPressed: () async {
+                          await controller.pickDate(context);
                         },
-                        hintText: 'ID Proof*',
-                        labelText: 'ID Proof Number *',
-                        textCapitalization: TextCapitalization.characters,
-                        errorMessage:
-                            controller.idProofNumberError.value.isNotEmpty
-                                ? controller.idProofNumberError.value
-                                : null,
+                        icon: Icon(Icons.calendar_month),
                       ),
                     ),
-                  ]),
-                  RmiWidgetHelper.verticalSpacer(10),
-                  RmiWidgetHelper.appTextField(
-                    context: context,
-                    controller: controller.emailController,
-                    focusNode: controller.emailFocusNode,
-                    cursorHeight: 12,
-                    enabled: true,
-                    errorMessage: controller.emailError.value.isNotEmpty
-                        ? controller.emailError.value
-                        : null,
-                    keyboardType: TextInputType.emailAddress,
-                    labelText: 'Email *',
-                    onChanged: (value) {
-                      controller.email.value = value;
-                      controller.validateEmail();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  RmiWidgetHelper.appTextField(
-                    context: context,
-                    controller: controller.mobileNumberController,
-                    focusNode: controller.mobileNumberFocusNode,
-                    cursorHeight: 12,
-                    enabled: true,
-                    errorMessage: controller.mobileNumberError.value.isNotEmpty
-                        ? controller.mobileNumberError.value
-                        : null,
-                    keyboardType: TextInputType.phone,
-                    labelText: 'Mobile Number *',
-                    onChanged: (value) {
-                      controller.mobileNumber.value = value;
-                      controller.validatemobileNumberField();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  RmiWidgetHelper.appTextField(
-                    context: context,
-                    controller: controller.relationshipController,
-                    focusNode: controller.relationshipFocusNode,
-                    cursorHeight: 12,
-                    enabled: true,
-                    keyboardType: TextInputType.text,
-                    errorMessage: controller.relationshipError.value.isNotEmpty
-                        ? controller.relationshipError.value
-                        : null,
-                    labelText: 'Relationship of the Party *',
-                    onChanged: (value) {
-                      controller.relationship.value = value;
-                      controller.validateRelationship();
-                    },
-                  ),
-                  const SizedBox(height: 15),
-                  RmiWidgetHelper.rmiRow(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    childrens: [
-                      Container(
-                        height: SizeConfig.height(context, 0.05),
-                        width: SizeConfig.width(context, 0.12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: ColorConstants.toggleBorder, width: 1),
-                        ),
-                        child: RmiWidgetHelper.rmiIconButton(
-                          onPressed: () async {
-                            await controller.pickDate(context);
-                          },
-                          icon: Icon(Icons.calendar_month),
-                        ),
-                      ),
-                      RmiWidgetHelper.horizontalSpacer(20),
-                      Obx(() {
-                        return controller.selectedDate.value == null
-                            ? RmiWidgetHelper.rmiColumn(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                childrens: [
-                                  RmiWidgetHelper.rmiText(
-                                    text: 'Date of Birth of the signatory or ',
-                                    color: ColorConstants.fontDarkGrey,
-                                  ),
-                                  RmiWidgetHelper.rmiText(
-                                    text: 'date of incorporation of the ',
-                                    color: ColorConstants.fontDarkGrey,
-                                  ),
-                                  RmiWidgetHelper.rmiText(
-                                    text: 'company in case of non-individual ',
-                                    color: ColorConstants.fontDarkGrey,
-                                  ),
-                                ],
-                              )
-                            : RmiWidgetHelper.rmiContainer(
-                                padding: EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: ColorConstants.toggleBorder,
-                                      width: 1),
-                                  color: ColorConstants.backgroundWhite,
-                                ),
-                                child: RmiWidgetHelper.rmiText(
-                                  text:
-                                      "${controller.selectedDate.value!.day}/${controller.selectedDate.value!.month}/${controller.selectedDate.value!.year}",
+                    RmiWidgetHelper.horizontalSpacer(20),
+                    Obx(() {
+                      return controller.selectedDate.value == null
+                          ? RmiWidgetHelper.rmiColumn(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              childrens: [
+                                RmiWidgetHelper.rmiText(
+                                  text: 'Date of Birth of the signatory or ',
                                   color: ColorConstants.fontDarkGrey,
                                 ),
-                              );
-                      }),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  RmiWidgetHelper.rmiDropDown1(
-                    value: controller.selectedParty.value.toString(),
-                    hint: RmiWidgetHelper.rmiText(text: 'Party Type*'),
-                    onDropDownChanged: (value) {
-                      print("Party type  $value");
+                                RmiWidgetHelper.rmiText(
+                                  text: 'date of incorporation of the ',
+                                  color: ColorConstants.fontDarkGrey,
+                                ),
+                                RmiWidgetHelper.rmiText(
+                                  text: 'company in case of non-individual ',
+                                  color: ColorConstants.fontDarkGrey,
+                                ),
+                              ],
+                            )
+                          : RmiWidgetHelper.rmiContainer(
+                              padding: EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: ColorConstants.toggleBorder,
+                                    width: 1),
+                                color: ColorConstants.backgroundWhite,
+                              ),
+                              child: RmiWidgetHelper.rmiText(
+                                text:
+                                    "${controller.selectedDate.value!.day}/${controller.selectedDate.value!.month}/${controller.selectedDate.value!.year}",
+                                color: ColorConstants.fontDarkGrey,
+                              ),
+                            );
+                    }),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                RmiWidgetHelper.rmiDropDown1(
+                  value: controller.selectedParty.value.toString(),
+                  hint: RmiWidgetHelper.rmiText(text: 'Party Type*'),
+                  onDropDownChanged: (value) {
+                    print("Party type  $value");
 
-                      if (value != null) {
-                        controller.selectedParty.value = value;
-                      }
-                    },
-                    items: party,
-                    error: controller.partyError.value.isNotEmpty,
-                    errorMessage: controller.partyError.value,
-                  ),
-                  const SizedBox(height: 15),
-                  RmiWidgetHelper.buildToggleSection(
+                    if (value != null) {
+                      controller.selectedParty.value = value;
+                    }
+                  },
+                  items: party,
+                  error: controller.partyError.value.isNotEmpty,
+                  errorMessage: controller.partyError.value,
+                ),
+                const SizedBox(height: 15),
+                RmiWidgetHelper.buildToggleSection(
+                  context: context,
+                  controller: genderController,
+                  labels: ['Male', 'Female'],
+                  onValueChanged: (index) {
+                    controller.maleorfemale.value = index;
+                  },
+                ),
+                RmiWidgetHelper.verticalSpacer(20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: RmiWidgetHelper.customElevatedButton(
                     context: context,
-                    controller: genderController,
-                    labels: ['Male', 'Female'],
-                    onValueChanged: (index) {
-                      controller.maleorfemale.value = index;
+                    text: AppStrings.continueButton,
+                    color: ColorConstants.buttonColor,
+                    textColor: ColorConstants.backgroundWhite,
+                    isEnabled: controller.isDetailsReadyToSubmit(),
+                    onPressed: () {
+                      controller.handleFormSubmission();
+                      controller.formVisible.value = false;
+                      controller.checkSecondSignatory();
                     },
                   ),
-                  RmiWidgetHelper.verticalSpacer(20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: RmiWidgetHelper.customElevatedButton(
-                      context: context,
-                      text: AppStrings.continueButton,
-                      color: ColorConstants.buttonColor,
-                      textColor: ColorConstants.backgroundWhite,
-                      isEnabled: controller.isDetailsReadyToSubmit(),
-                      onPressed: () {
-                        controller.handleFormSubmission();
-                        controller.formVisible.value = false;
-                      },
-                    ),
-                  ),
-                ] else ...[
-                  Visibility(
-                    visible: !controller.formVisible.value,
-                    child: RmiWidgetHelper.rmiRow(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        childrens: [
-                          const Icon(
-                            Icons.check_circle_outline,
-                            color: ColorConstants.checkMark,
+                ),
+              ] else ...[
+                Visibility(
+                  visible: !controller.formVisible.value,
+                  child: RmiWidgetHelper.rmiRow(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      childrens: [
+                        const Icon(
+                          Icons.check_circle_outline,
+                          color: ColorConstants.checkMark,
+                        ),
+                        RmiWidgetHelper.rmiText(
+                          text: AppStrings.firstSignatoryDetails,
+                          color: ColorConstants.fontGrey,
+                        ),
+                        RmiWidgetHelper.horizontalSpacer(40.0),
+                        RmiWidgetHelper.rmiIconButton(
+                          icon: SvgPicture.asset(
+                            AssetsConstants.delete,
                           ),
-                          RmiWidgetHelper.rmiText(
-                            text: AppStrings.firstSignatoryDetails,
-                            color: ColorConstants.fontGrey,
-                          ),
-                          RmiWidgetHelper.horizontalSpacer(40.0),
-                          RmiWidgetHelper.rmiIconButton(
-                            icon: SvgPicture.asset(
-                              AssetsConstants.delete,
-                            ),
-                            onPressed: () {
-                              controller.deleteAllDetailsAndOpenForm();
-                              controller.clearDate();
-                              controller.maleorfemale.value = -1;
-                              controller.update();
-                            },
-                          ),
-                          RmiWidgetHelper.rmiIconButton(
-                            icon: SvgPicture.asset(AssetsConstants.edit),
-                            onPressed: () {
-                              controller.formVisible.value = true;
-                              controller.isEditing.value = true;
-                              controller.editDetails();
-                            },
-                          ),
-                        ]),
-                  ),
-                ],
+                          onPressed: () {
+                            controller.deleteAllDetailsAndOpenForm();
+                            controller.clearDate();
+                            controller.maleorfemale.value = -1;
+                            controller.update();
+                          },
+                        ),
+                        RmiWidgetHelper.rmiIconButton(
+                          icon: SvgPicture.asset(AssetsConstants.edit),
+                          onPressed: () {
+                            controller.formVisible.value = true;
+                            controller.isEditing.value = true;
+                            controller.editDetails();
+                          },
+                        ),
+                      ]),
+                ),
               ],
-            ),
+            ],
           ),
-          // RmiWidgetHelper.verticalSpacer(20),
-          // Obx(() {
-          //   return RmiWidgetHelper.rmiColumn(
-          //     childrens: [
-          //       if (secondSignatoryController.hasData.value)
-          //         SecondSignatoryDetails(
-          //           onContinue: onContinue,
-          //         ),
-          //       RmiWidgetHelper.verticalSpacer(20),
-          //       RmiWidgetHelper.customElevatedButton(
-          //         color: ColorConstants.backgroundWhite,
-          //         textColor: ColorConstants.fontDarkGrey,
-          //         context: context,
-          //         alignment: Alignment.centerLeft,
-          //         text: "",
-          //         isEnabled: secondSignatoryController.formVisible.value,
-          //         onPressed: () {
-          //           secondSignatoryController.toggleFormVisibility();
-          //         },
-          //         child: Row(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             RmiWidgetHelper.rmiText(
-          //                 text: "Add Signatory Details",
-          //                 color: ColorConstants.fontDarkGrey),
-          //             Icon(
-          //               Icons.add,
-          //               color: ColorConstants.fontDarkGrey,
-          //               size: 25,
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   );
-          // })
-        ],
-      );
+        ),
+        RmiWidgetHelper.verticalSpacer(20),
+        Obx(() {
+          return controller.showSecondSignatory.value
+              ? SecondSignatoryDetails(
+                  onContinue: () {
+                    controller.showSecondSignatory.value = false;
+                  },
+                )
+              : SizedBox.shrink();
+        }),
+        RmiWidgetHelper.verticalSpacer(20),
+        Obx(() => SizedBox(
+            width: double.infinity,
+            child: RmiWidgetHelper.customElevatedButton(
+                text: "Add Second Signatory",
+                onPressed: () {
+                  controller.showSecondSignatory.toggle();
+                },
+                isEnabled: !controller.showSecondSignatory.value,
+                context: context))),
+      ]);
     });
   }
 }

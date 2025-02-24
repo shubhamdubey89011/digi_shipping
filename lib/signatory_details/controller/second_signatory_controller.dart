@@ -57,7 +57,6 @@ class SecondSignatoryController extends GetxController {
   final DatabaseHelper _dbHelper = DatabaseHelper();
   RxBool isFirstPartyFormSubmitted = false.obs;
 
-  var secondFormVisible = false.obs;
 
   var firstFormFilled = false.obs;
   var secondFormFilled = false.obs;
@@ -120,7 +119,6 @@ class SecondSignatoryController extends GetxController {
       selectedProofController.text = selectedProof.value.toString();
       selectedPartyController.text = selectedParty.value.toString();
 
-      // toggleFormVisibility();
       formVisible.value = true;
     });
   }

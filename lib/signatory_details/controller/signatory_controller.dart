@@ -42,7 +42,7 @@ class SignatoryController extends GetxController {
   var detailsSubmitted = false.obs;
   RxBool isFormSubmitted = false.obs;
 
-   RxInt maleorfemale = 0.obs;
+  RxInt maleorfemale = 0.obs;
 
   RxList<SignatoryDetailsModel> partyDetailsList =
       <SignatoryDetailsModel>[].obs;
@@ -73,15 +73,13 @@ class SignatoryController extends GetxController {
 
   var showSecondSignatory = false.obs;
   final RxBool isSecondFormVisible = false.obs;
-
-  void toggleSecondSignatoryForm() {
-    showSecondSignatory.value = true;
-  }
+  var hasSecondSignatoryData = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
     await checkTableAndToggleForm();
+    hasDataInSecondSignatory();
 
     nameController.addListener(validateNameField);
     idProofController.addListener(validateidProofNumberField);
@@ -163,7 +161,7 @@ class SignatoryController extends GetxController {
 
     bool ready = name.value.isNotEmpty &&
         idProofNumber.value.isNotEmpty &&
-        // selectedParty.value.isNotEmpty &&
+        selectedParty.value.isNotEmpty &&
         relationship.value.isNotEmpty &&
         mobileNumber.value.isNotEmpty &&
         idGenderError.value.isEmpty &&
@@ -304,6 +302,17 @@ class SignatoryController extends GetxController {
     return data.isNotEmpty;
   }
 
+  Future<bool> hasDataInSecondSignatory() async {
+    final data = await _dbHelper.fetchAllDetails(
+        tableName: DbHelperKeys.secondsignatoryDetailsColumn);
+    print("Fetched data from table: $data");
+    return data.isNotEmpty;
+  }
+
+  Future<void> checkSecondSignatory() async{
+    hasSecondSignatoryData.value = await hasDataInSecondSignatory();
+  }
+
   Future<void> deleteAllDetails() async {
     try {
       int rowsDeleted =
@@ -399,7 +408,7 @@ class SignatoryController extends GetxController {
     dobFocusNode.dispose();
     partyFocusNode.dispose();
     genderFocusNode.dispose();
-    
+
     super.onClose();
   }
 
@@ -418,7 +427,7 @@ class SignatoryController extends GetxController {
   //   }
   // }
 
-    Future<void> pickDate(BuildContext context) async {
+  Future<void> pickDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -426,13 +435,11 @@ class SignatoryController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
-      selectedDate.value = picked; 
+      selectedDate.value = picked;
     }
   }
 
   void clearDate() {
-    selectedDate.value = null; 
+    selectedDate.value = null;
   }
 }
-
- 

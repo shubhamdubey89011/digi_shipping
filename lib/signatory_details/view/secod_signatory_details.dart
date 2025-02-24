@@ -38,7 +38,7 @@ class SecondSignatoryDetails extends StatelessWidget {
               ),
             ),
             RmiWidgetHelper.verticalSpacer(10),
-            if (secondController.formVisible.value) ...[
+            if (secondController.formVisible.value ) ...[
               RmiWidgetHelper.appTextField(
                 controller: secondController.nameController,
                 labelText: 'Name *',
@@ -239,7 +239,7 @@ class SecondSignatoryDetails extends StatelessWidget {
               ),
             ] else ...[
               Visibility(
-                visible: !secondController.formVisible.value,
+                visible: !secondController.formVisible.value ,
                 child: RmiWidgetHelper.rmiRow(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

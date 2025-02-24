@@ -29,3 +29,42 @@
 //     ),
 //   ],
 // );
+
+
+// RmiWidgetHelper.verticalSpacer(20),
+          // Obx(() {
+          //   return RmiWidgetHelper.rmiColumn(
+          //     childrens: [
+          //       if (secondSignatoryController.hasData.value)
+          //         SecondSignatoryDetails(
+          //           onContinue: onContinue,
+          //         ),
+          //       RmiWidgetHelper.verticalSpacer(20),
+          //       RmiWidgetHelper.customElevatedButton(
+          //         color: ColorConstants.backgroundWhite,
+          //         textColor: ColorConstants.fontDarkGrey,
+          //         context: context,
+          //         alignment: Alignment.centerLeft,
+          //         text: "",
+          //         isEnabled: secondSignatoryController.formVisible.value,
+          //         onPressed: () {
+          //           secondSignatoryController.toggleFormVisibility();
+          //         },
+          //         child: Row(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             RmiWidgetHelper.rmiText(
+          //                 text: "Add Signatory Details",
+          //                 color: ColorConstants.fontDarkGrey),
+          //             Icon(
+          //               Icons.add,
+          //               color: ColorConstants.fontDarkGrey,
+          //               size: 25,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   );
+          // })

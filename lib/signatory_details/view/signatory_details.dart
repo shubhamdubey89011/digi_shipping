@@ -111,13 +111,14 @@ class PartySignatoryDetails extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              SecondSignatoryDetails(
-                onContinue: () {
-                  signatorycontroller.checkTableAndToggleForm();
+              // SecondSignatoryDetails(
+              //   onContinue: () {
+              //     signatorycontroller.checkSecondSignatory();
+              //     secondSignatoryController.formVisible.value = false;
 
-                  print('Continue pressed');
-                },
-              ),
+              //     print('Continue pressed');
+              //   },
+              // ),
             ],
           ),
         ),
