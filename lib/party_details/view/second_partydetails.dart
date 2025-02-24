@@ -2,7 +2,6 @@ import 'package:document_fill_demo/constants/assets_constants.dart';
 import 'package:document_fill_demo/constants/color_constants.dart';
 import 'package:document_fill_demo/constants/constant_list.dart';
 import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
-import 'package:document_fill_demo/party_details/controller/second_party_detailscontroller.dart';
 import 'package:document_fill_demo/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

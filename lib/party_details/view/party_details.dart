@@ -4,7 +4,7 @@ import 'package:document_fill_demo/party_details/controller/first_party_details_
 import 'package:document_fill_demo/party_details/view/second_partydetails.dart';
 import 'package:document_fill_demo/party_details/view/first_partydetails.dart';
 import 'package:document_fill_demo/utils/widget_utils.dart';
-import 'package:document_fill_demo/view/stamp_paper_details.dart';
+import 'package:document_fill_demo/other_views/stamp_paper_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

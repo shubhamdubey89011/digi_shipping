@@ -1,6 +1,6 @@
 import 'package:document_fill_demo/binding/app_binding.dart';
 import 'package:document_fill_demo/db_helper/db_helper.dart';
-import 'package:document_fill_demo/view/document_details.dart';
+import 'package:document_fill_demo/other_views/document_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

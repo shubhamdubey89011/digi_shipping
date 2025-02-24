@@ -4,25 +4,25 @@ import 'package:document_fill_demo/party_details/controller/first_party_details_
 import 'package:document_fill_demo/party_details/view/first_partydetails.dart';
 import 'package:document_fill_demo/party_details/view/party_details.dart';
 import 'package:document_fill_demo/party_details/view/second_partydetails.dart';
-import 'package:document_fill_demo/signatory_details/controller/second_signatory_controller.dart';
-import 'package:document_fill_demo/signatory_details/controller/signatory_controller.dart';
-import 'package:document_fill_demo/signatory_details/view/first_signatory_details.dart';
-import 'package:document_fill_demo/signatory_details/view/secod_signatory_details.dart';
+import 'package:document_fill_demo/signatory_details/second_signatory/controller/second_signatory_controller.dart';
+import 'package:document_fill_demo/signatory_details/first_signatory_details/controller/first_signatory_controller.dart';
+import 'package:document_fill_demo/signatory_details/first_signatory_details/view/first_signatory_details.dart';
+import 'package:document_fill_demo/signatory_details/second_signatory/view/secod_signatory_details.dart';
 import 'package:document_fill_demo/utils/widget_utils.dart';
-import 'package:document_fill_demo/view/document_details.dart';
-import 'package:document_fill_demo/view/stamp_paper_details.dart';
+import 'package:document_fill_demo/other_views/document_details.dart';
+import 'package:document_fill_demo/other_views/stamp_paper_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PartySignatoryDetails extends StatelessWidget {
   PartySignatoryDetails({super.key});
 
-// final SignatoryController controller = Get.find<SignatoryController>();
+// final FirstSignatoryController controller = Get.find<FirstSignatoryController>();
   final PartyDetailsController firstcontroller =
       Get.find<PartyDetailsController>();
 
-  final SignatoryController signatorycontroller =
-      Get.find<SignatoryController>();
+  final FirstSignatoryController signatorycontroller =
+      Get.find<FirstSignatoryController>();
       final SecondSignatoryController secondSignatoryController = Get.find<SecondSignatoryController>();
   // final SecondPartyDetailscontroller secondcontroller =
   //     Get.find<SecondPartyDetailscontroller>();
