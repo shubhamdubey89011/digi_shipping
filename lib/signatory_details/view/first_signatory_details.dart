@@ -303,15 +303,29 @@ class FirstSignatoryDetails extends StatelessWidget {
               : SizedBox.shrink();
         }),
         RmiWidgetHelper.verticalSpacer(20),
-        Obx(() => SizedBox(
-            width: double.infinity,
-            child: RmiWidgetHelper.customElevatedButton(
-                text: "Add Second Signatory",
-                onPressed: () {
-                  controller.showSecondSignatory.toggle();
-                },
-                isEnabled: !controller.showSecondSignatory.value,
-                context: context))),
+        Obx(() => RmiWidgetHelper.customElevatedButton(
+              alignment: Alignment.centerLeft,
+              color: ColorConstants.backgroundWhite,
+              text: "Add Second Signatory",
+              onPressed: () {
+                controller.showSecondSignatory.toggle();
+              },
+              isEnabled: !controller.showSecondSignatory.value,
+              context: context,
+              child: RmiWidgetHelper.rmiRow(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                childrens: [
+                  RmiWidgetHelper.rmiText(
+                      text: "Add Second Signatory",
+                      color: ColorConstants.fontDarkGrey),
+                  Icon(
+                    Icons.add,
+                    color: ColorConstants.fontDarkGrey,
+                  ),
+                ],
+              ),
+            )),
       ]);
     });
   }

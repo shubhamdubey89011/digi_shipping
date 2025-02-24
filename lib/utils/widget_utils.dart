@@ -265,11 +265,12 @@ class RmiWidgetHelper {
             borderRadius: borderRadius ?? BorderRadius.circular(10.0),
           ),
         ),
-        child: child ?? rmiText(
-            text: text,
-            color: isEnabled == true ? textColor : Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w600),
+        child: child ??
+            rmiText(
+                text: text,
+                color: isEnabled == true ? textColor : Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -479,6 +480,76 @@ class RmiWidgetHelper {
       ),
     );
   }
+
+static  Widget rmiMaterialButton({
+    required String text,
+    required VoidCallback onPressed,
+    Color color = ColorConstants.buttonColor,
+    Color textColor = ColorConstants.fontDarkGrey,
+    double elevation = 2.0,
+    EdgeInsetsGeometry padding =
+        const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+    double borderRadius = 10.0,
+    double minWidth = double.infinity,
+    double? height ,
+    TextStyle textStyle = const TextStyle(
+      fontSize: 14,
+    
+      fontWeight: FontWeight.w600,
+    ),
+    BorderSide borderSide = BorderSide.none,
+    Widget? icon,
+    bool isDisabled = false,
+  }) {
+    return MaterialButton(
+      onPressed: isDisabled ? null : onPressed,
+      color: color,
+      textColor: textColor,
+      elevation: elevation,
+      padding: padding,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
+        side: borderSide,
+      ),
+      minWidth: minWidth,
+      height: height ?? 45.0,
+      child: Text(text, style: textStyle),
+    );
+  }
+
+
+static Widget rmicustomDropdown<T>({
+  required List<DropdownMenuItem<T>> items,
+  required T value,
+  required ValueChanged<T?> onChanged,
+  Color dropdownColor = Colors.white,
+  double elevation = 2.0,
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  double borderRadius = 8.0,
+  InputDecoration? decoration,
+  TextStyle? style,
+  Widget? icon,
+  bool isExpanded = true,
+  bool isDense = false,
+  Color? iconEnabledColor,
+  Color? iconDisabledColor,
+}) {
+  return DropdownButtonFormField<T>(
+    value: value,
+    items: items,
+    onChanged: onChanged,
+    dropdownColor: dropdownColor,
+    elevation: elevation.toInt(),
+    decoration: decoration ?? InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(borderRadius))),
+    style: style,
+    icon: icon,
+    isExpanded: isExpanded,
+    isDense: isDense,
+    iconEnabledColor: iconEnabledColor,
+    iconDisabledColor: iconDisabledColor,
+  );
+}
+
 
   static Widget rmiText({
     required String text,
