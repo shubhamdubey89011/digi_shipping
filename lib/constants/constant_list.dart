@@ -27,6 +27,7 @@ final List<String> proofs = [
   static const secondSignatoryDetailsColumn = 'secondpartydetails';
   static const signatoryDetailsColumn = 'signatorydetails';
   static const secondsignatoryDetailsColumn = 'secondsignatorydetails';
+  static const othersignatories = 'othersignatories';
   static const firstpartydatabase = 'firstpartydatabase';
  
 }
@@ -36,7 +37,10 @@ class AppStrings {
    static const secondPartyDetails =  'Second Party Details';
    static const firstPartyDetails = 'First Party Details';
    static const firstSignatoryDetails = 'First Signatory Details';
+   static const signatoryDetails = 'Signatory Details';
+   static const addSignatoryDetails = 'Add Signatory Details';
    static const secondSignatoryDetails = 'Second Signatory Details';
+   static const othersignatories = 'Other Signatory Details';
    static const addSecondPartyDetails = 'Add Second Party Details';
    static const addFirstPartyDetails = 'Add First Party Details';
    static const continueButton = 'Continue';

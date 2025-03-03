@@ -42,6 +42,8 @@ class FirstSignatoryController extends GetxController {
   var detailsSubmitted = false.obs;
   RxBool isFormSubmitted = false.obs;
 
+  var hasData = false.obs;
+
   RxInt maleorfemale = 0.obs;
 
   RxList<SignatoryDetailsModel> partyDetailsList =
@@ -79,7 +81,7 @@ class FirstSignatoryController extends GetxController {
   void onInit() async {
     super.onInit();
     await checkTableAndToggleForm();
-    hasDataInSecondSignatory();
+    // hasDataInSecondSignatory();
 
     nameController.addListener(validateNameField);
     idProofController.addListener(validateidProofNumberField);
@@ -89,6 +91,10 @@ class FirstSignatoryController extends GetxController {
     relationshipController.addListener(validateRelationship);
     selectedPartyController.addListener(validateParty);
     // dobController.addListener(validateDOB);
+  }
+
+   Future<void> checkData() async {
+    hasData.value = await hasDataInTable();
   }
 
   //
@@ -263,6 +269,11 @@ class FirstSignatoryController extends GetxController {
             : '';
   }
 
+  Future<bool> hasFirstSignatoryData() async {
+  final data = await _dbHelper.fetchAllDetails(tableName: 'signatorydetails');
+  return data.isNotEmpty;
+}
+
   void resetFields() {
     name.value = '';
     idProofNumber.value = '';
@@ -304,7 +315,7 @@ class FirstSignatoryController extends GetxController {
 
   Future<bool> hasDataInSecondSignatory() async {
     final data = await _dbHelper.fetchAllDetails(
-        tableName: DbHelperKeys.secondsignatoryDetailsColumn);
+        tableName: DbHelperKeys.othersignatories);
     print("Fetched data from table: $data");
     return data.isNotEmpty;
   }

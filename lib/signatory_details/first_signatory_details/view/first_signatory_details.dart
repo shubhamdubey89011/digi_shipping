@@ -17,7 +17,8 @@ class FirstSignatoryDetails extends StatelessWidget {
 
   FirstSignatoryDetails({super.key, required this.onContinue});
 
-  final FirstSignatoryController controller = Get.find<FirstSignatoryController>();
+  final FirstSignatoryController controller =
+      Get.find<FirstSignatoryController>();
   final PartyDetailsController partyController =
       Get.find<PartyDetailsController>();
   final CustomToggleController genderController =
@@ -38,12 +39,12 @@ class FirstSignatoryDetails extends StatelessWidget {
               Visibility(
                 visible: controller.formVisible.value,
                 child: RmiWidgetHelper.rmiText(
-                  text: AppStrings.firstSignatoryDetails,
+                  text: AppStrings.signatoryDetails,
                   color: ColorConstants.fontGrey,
                 ),
               ),
-              RmiWidgetHelper.verticalSpacer(10),
               if (controller.formVisible.value) ...[
+                RmiWidgetHelper.verticalSpacer(10),
                 RmiWidgetHelper.appTextField(
                   controller: controller.nameController,
                   labelText: 'Name *',
@@ -259,7 +260,7 @@ class FirstSignatoryDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       childrens: [
                         const Icon(
-                          Icons.check_circle_outline,
+                          Icons.check_circle,
                           color: ColorConstants.checkMark,
                         ),
                         RmiWidgetHelper.rmiText(
@@ -292,40 +293,6 @@ class FirstSignatoryDetails extends StatelessWidget {
             ],
           ),
         ),
-        RmiWidgetHelper.verticalSpacer(20),
-        Obx(() {
-          return controller.showSecondSignatory.value
-              ? SecondSignatoryDetails(
-                  onContinue: () {
-                    controller.showSecondSignatory.value = false;
-                  },
-                )
-              : SizedBox.shrink();
-        }),
-        RmiWidgetHelper.verticalSpacer(20),
-        Obx(() => RmiWidgetHelper.customElevatedButton(
-              alignment: Alignment.centerLeft,
-              color: ColorConstants.backgroundWhite,
-              text: "Add Second Signatory",
-              onPressed: () {
-                controller.showSecondSignatory.toggle();
-              },
-              isEnabled: !controller.showSecondSignatory.value,
-              context: context,
-              child: RmiWidgetHelper.rmiRow(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                childrens: [
-                  RmiWidgetHelper.rmiText(
-                      text: "Add Second Signatory",
-                      color: ColorConstants.fontDarkGrey),
-                  Icon(
-                    Icons.add,
-                    color: ColorConstants.fontDarkGrey,
-                  ),
-                ],
-              ),
-            )),
       ]);
     });
   }

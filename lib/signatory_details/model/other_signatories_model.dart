@@ -1,4 +1,5 @@
-class SignatoryDetailsModel {
+class OtherSignatoriesModel {
+  String id; // Add this field
   String name;
   String idProofNumber;
   int mobileNumber;
@@ -8,8 +9,10 @@ class SignatoryDetailsModel {
   String dob;
   String gender;
   String selectedParty;
+  bool formVisible;
 
-  SignatoryDetailsModel({
+  OtherSignatoriesModel({
+    required this.id, // Add this field
     required this.name,
     required this.idProofNumber,
     required this.mobileNumber,
@@ -19,10 +22,12 @@ class SignatoryDetailsModel {
     required this.dob,
     required this.gender,
     required this.selectedParty,
+    this.formVisible = true,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id, // Include the ID in the map
       'name': name,
       'idProofNumber': idProofNumber,
       'mobileNumber': mobileNumber,
@@ -31,12 +36,13 @@ class SignatoryDetailsModel {
       'relationship': relationship,
       'dob': dob,
       'gender': gender,
-      'selectedParty': selectedParty,
+      'selectedParty': selectedParty, 'formVisible': formVisible ? 1 : 0,
     };
   }
 
-  factory SignatoryDetailsModel.fromMap(Map<String, dynamic> map) {
-    return SignatoryDetailsModel(
+  factory OtherSignatoriesModel.fromMap(Map<String, dynamic> map) {
+    return OtherSignatoriesModel(
+      id: map['id'], // Include the ID in the factory method
       name: map['name'],
       idProofNumber: map['idProofNumber'],
       mobileNumber: map['mobileNumber'],
@@ -45,11 +51,7 @@ class SignatoryDetailsModel {
       relationship: map['relationship'],
       dob: map['dob'],
       gender: map['gender'],
-      selectedParty: map['selectedParty'],
+      selectedParty: map['selectedParty'], formVisible: map['formVisible'] == 1,
     );
   }
 }
-
-
-// list of signatory details model 
-// make primary key to mobile number

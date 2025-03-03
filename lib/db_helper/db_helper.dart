@@ -63,23 +63,8 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE secondsignatorydetails (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        idProofNumber TEXT,
-        mobileNumber INTEGER,
-        email TEXT,
-        relationship TEXT,
-        dob TEXT,
-        gender TEXT,
-        selectedParty TEXT,
-        selectedProof TEXT
-      )
-    ''');
-
-    await db.execute('''
     CREATE TABLE othersignatories (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY ,
       name TEXT,
       idProofNumber TEXT,
       mobileNumber INTEGER,
@@ -88,7 +73,8 @@ class DatabaseHelper {
       dob TEXT,
       gender TEXT,
       selectedParty TEXT,
-      selectedProof TEXT
+      selectedProof TEXT,
+      formVisible INTEGER DEFAULT 1
     )
   ''');
   }
@@ -128,5 +114,30 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), _databaseName);
     await deleteDatabase(path);
     _database = null;
+  }
+
+  Future<int> insertOtherSignatory(Map<String, dynamic> data) async {
+    final db = await database;
+    return await db.insert('othersignatories', data);
+  }
+
+  Future<Map<String, dynamic>?> fetchOtherSignatoryById(String id) async {
+    final db = await database;
+    final result = await db.query(
+      'othersignatories',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    return result.isNotEmpty ? result.first : null;
+  }
+
+  Future<int> deleteOtherSignatoryById(String id) async {
+    final db = await database;
+    return await db.delete(
+      'othersignatories',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

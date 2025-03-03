@@ -81,7 +81,7 @@ class PartyDetailsController extends GetxController {
     super.onInit();
     await checkTableAndToggleForm();
     isFirstFormCompleted.value = await hasDataInTable();
-    initializeFormListeners();
+    initializeFirstPartyListeners();
 
     secondPartycheckTableAndToggleForm();
     seconPartyinitializeFormListeners();
@@ -96,7 +96,7 @@ class PartyDetailsController extends GetxController {
     secondPartyPinCodeController.addListener(secondPartyvalidatepinCodeField);
   }
 
-  void initializeFormListeners() {
+  void initializeFirstPartyListeners() {
     firstPartyNameController.addListener(validateNameField);
     firstPartyIdProofController.addListener(validateidProofNumberField);
     firstPartyMobileNumberController.addListener(validatemobileNumberField);

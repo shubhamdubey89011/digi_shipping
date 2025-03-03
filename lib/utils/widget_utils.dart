@@ -565,7 +565,7 @@ static Widget rmicustomDropdown<T>({
       text,
       style: style ??
           GoogleFonts.plusJakartaSans(
-              color: color ?? ColorConstants.fontBlack,
+              color: color ?? ColorConstants.fontDarkGrey,
               fontSize: fontSize ?? 14,
               fontWeight: fontWeight ?? rmiFontWeight.headline),
       textAlign: textAlign,
@@ -600,12 +600,12 @@ static Widget rmicustomDropdown<T>({
       required Widget child,
       duration = const Duration(milliseconds: 300),
       EdgeInsets? padding,
-      Color? color,
+      Color? color,EdgeInsetsGeometry? margin,
       borderRadius = 10.0,
       Decoration? decoration}) {
     return AnimatedContainer(
       duration: duration,
-      padding: padding ?? EdgeInsets.all(10),
+      padding: padding ?? EdgeInsets.all(10),margin: margin,
       width: double.infinity,
       decoration: decoration ??
           BoxDecoration(
@@ -676,13 +676,14 @@ static Widget rmicustomDropdown<T>({
           ],
       centerTitle: centerTitle,
       backgroundColor: backgroundColor ?? ColorConstants.appBarColor,
-      leading: leading ??
-          RmiWidgetHelper.rmiIconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.back();
-            },
-          ),
+      leading: leading,
+      // leading: leading ??
+      //     RmiWidgetHelper.rmiIconButton(
+      //       icon: Icon(Icons.arrow_back),
+      //       onPressed: () {
+      //         Get.back();
+      //       },
+      //     ),
       elevation: elevation,
     );
   }

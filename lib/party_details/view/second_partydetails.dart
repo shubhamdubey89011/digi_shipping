@@ -21,6 +21,8 @@ class SecondPartyDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return RmiWidgetHelper.rmiAnimatedContainer(
+        padding: controller.secondPartyformVisible.value &&
+                controller.isFirstFormCompleted.value ? EdgeInsets.all(10) : EdgeInsets.all(5),
         child: RmiWidgetHelper.rmiColumn(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,9 +34,10 @@ class SecondPartyDetailsCard extends StatelessWidget {
                 color: ColorConstants.fontGrey,
               ),
             ),
-            const SizedBox(height: 10),
+           
             if (controller.secondPartyformVisible.value &&
                 controller.isFirstFormCompleted.value) ...[
+                   const SizedBox(height: 10),
               RmiWidgetHelper.appTextField(
                 controller: controller.secondPartyNameController,
                 labelText: AppStrings.name,
@@ -150,7 +153,7 @@ class SecondPartyDetailsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     childrens: [
                       const Icon(
-                        Icons.check_circle_outline,
+                        Icons.check_circle,
                         color: ColorConstants.checkMark,
                       ),
                       RmiWidgetHelper.rmiText(

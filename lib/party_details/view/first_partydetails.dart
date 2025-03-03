@@ -32,7 +32,7 @@ class FirstPartyDetailsCard extends StatelessWidget {
                 color: ColorConstants.fontGrey,
               ),
             ),
-            RmiWidgetHelper.verticalSpacer(10),
+            // RmiWidgetHelper.verticalSpacer(10),
             if (controller.formVisible.value) ...[
               RmiWidgetHelper.appTextField(
                 controller: controller.firstPartyNameController,
@@ -147,7 +147,7 @@ class FirstPartyDetailsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     childrens: [
                       const Icon(
-                        Icons.check_circle_outline,
+                        Icons.check_circle,
                         color: ColorConstants.checkMark,
                       ),
                       RmiWidgetHelper.rmiText(

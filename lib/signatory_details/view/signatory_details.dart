@@ -1,5 +1,6 @@
 import 'package:document_fill_demo/constants/color_constants.dart';
 import 'package:document_fill_demo/constants/constant_list.dart';
+import 'package:document_fill_demo/dashboard/view/dashboard_view.dart';
 import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
 import 'package:document_fill_demo/party_details/view/first_partydetails.dart';
 import 'package:document_fill_demo/party_details/view/party_details.dart';
@@ -17,15 +18,13 @@ import 'package:get/get.dart';
 class PartySignatoryDetails extends StatelessWidget {
   PartySignatoryDetails({super.key});
 
-// final FirstSignatoryController controller = Get.find<FirstSignatoryController>();
   final PartyDetailsController firstcontroller =
       Get.find<PartyDetailsController>();
 
   final FirstSignatoryController signatorycontroller =
       Get.find<FirstSignatoryController>();
-      final SecondSignatoryController secondSignatoryController = Get.find<SecondSignatoryController>();
-  // final SecondPartyDetailscontroller secondcontroller =
-  //     Get.find<SecondPartyDetailscontroller>();
+  final SecondSignatoryController secondSignatoryController =
+      Get.find<SecondSignatoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +60,7 @@ class PartySignatoryDetails extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(35.0),
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -80,45 +80,51 @@ class PartySignatoryDetails extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               FirstPartyDetailsCard(
                 onContinue: () {
                   firstcontroller.toggleFormVisibility();
-
                   print('Continue pressed');
                 },
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
               SecondPartyDetailsCard(
                 onContinue: () {
                   firstcontroller.toggleFormVisibility();
-
                   print('Continue pressed');
                 },
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
               FirstSignatoryDetails(
                 onContinue: () {
                   signatorycontroller.toggleFormVisibility();
                 },
               ),
-              SizedBox(
-                height: 30,
+              SizedBox(height: 20),
+              SecondSignatoryDetails(
+                onContinue: secondSignatoryController.checkTableAndToggleForm,
               ),
-              // SecondSignatoryDetails(
-              //   onContinue: () {
-              //     signatorycontroller.checkSecondSignatory();
-              //     secondSignatoryController.formVisible.value = false;
+              SizedBox(height: 20),
+              Obx(() {
+                bool isFirstSignatoryCompleted =
+                    !signatorycontroller.formVisible.value;
+                bool isAtLeastOneSecondSignatoryCompleted =
+                    secondSignatoryController.instances
+                        .any((instance) => instance.formVisible.value == false);
 
-              //     print('Continue pressed');
-              //   },
-              // ),
+                bool isContinueEnabled = isFirstSignatoryCompleted &&
+                    isAtLeastOneSecondSignatoryCompleted;
+
+                return ElevatedButton(
+                  onPressed: isContinueEnabled
+                      ? () {
+                          print("Proceed button pressed");
+                          Get.to(() => DashboardView());
+                        }
+                      : null,
+                  child: Text('Continue'),
+                );
+              }),
             ],
           ),
         ),
