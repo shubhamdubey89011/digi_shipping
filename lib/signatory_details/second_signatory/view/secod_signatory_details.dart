@@ -238,17 +238,17 @@ class SecondSignatoryDetails extends StatelessWidget {
                             errorMessage: instance.partyError.value,
                           ),
                           const SizedBox(height: 15),
-                          // RmiWidgetHelper.buildToggleSection(
-                          //   context: context,
-                          //   controller: genderController,
-                          //   labels: ['Male', 'Female'],
-                          //   onValueChanged: (index) {
-                          //     instance.maleorfemale.value = index;
-                          //     instance.gender.value = index == 0
-                          //         ? 'Male'
-                          //         : 'Female';
-                          //   },
-                          // ),
+                          RmiWidgetHelper.buildToggleSection(
+                            context: context,
+                            controller: genderController,
+                            labels: ['Male', 'Female'],
+                            onValueChanged: (index) {
+                              instance.maleorfemale.value = index;
+                              instance.gender.value = index == 0
+                                  ? 'Male'
+                                  : 'Female';
+                            },
+                          ),
                           RmiWidgetHelper.verticalSpacer(20),
                           SizedBox(
                             width: double.infinity,

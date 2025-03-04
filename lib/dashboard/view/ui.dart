@@ -187,7 +187,7 @@ Widget rmiKarnataGovCard(BuildContext context) {
         height: SizeConfig.screenHeight(context) / 4,
       ),
       Padding(
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -221,7 +221,7 @@ Widget rmiAxisBankCard(BuildContext context) {
         height: SizeConfig.screenHeight(context) / 4,
       ),
       Padding(
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -265,7 +265,7 @@ Widget buildCardSlider(BuildContext context) {
 
   return CarouselSlider(
     options: CarouselOptions(
-      height: SizeConfig.screenWidth(context) / 4,
+      height: SizeConfig.screenHeight(context) / 10,
       autoPlay: false,
       enlargeCenterPage: true,
       viewportFraction: 0.9,

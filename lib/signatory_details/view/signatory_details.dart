@@ -1,5 +1,6 @@
 import 'package:document_fill_demo/constants/color_constants.dart';
 import 'package:document_fill_demo/constants/constant_list.dart';
+import 'package:document_fill_demo/constants/dimensions.dart';
 import 'package:document_fill_demo/dashboard/view/dashboard_view.dart';
 import 'package:document_fill_demo/party_details/controller/first_party_details_controller.dart';
 import 'package:document_fill_demo/party_details/view/first_partydetails.dart';
@@ -14,6 +15,7 @@ import 'package:document_fill_demo/other_views/document_details.dart';
 import 'package:document_fill_demo/other_views/stamp_paper_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 class PartySignatoryDetails extends StatelessWidget {
   PartySignatoryDetails({super.key});
@@ -32,14 +34,15 @@ class PartySignatoryDetails extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(240, 238, 255, 1),
         body: TabBarView(
-          children:
-              tabsData.map((tab) => _buildTabContent(tab['title']!)).toList(),
+          children: tabsData
+              .map((tab) => _buildTabContent(tab['title']!, context))
+              .toList(),
         ),
       ),
     );
   }
 
-  Widget _buildTabContent(String title) {
+  Widget _buildTabContent(String title, context) {
     switch (title) {
       case 'DOCUMENT':
         return DocumentDetailsPage();
@@ -48,13 +51,13 @@ class PartySignatoryDetails extends StatelessWidget {
       case 'STAMP':
         return StampPaperDetails();
       case 'SIGNATORY':
-        return _partysignatorydetails();
+        return _partysignatorydetails(context);
       default:
-        return _partysignatorydetails();
+        return _partysignatorydetails(context);
     }
   }
 
-  Widget _partysignatorydetails() {
+  Widget _partysignatorydetails(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       body: Padding(
@@ -116,13 +119,31 @@ class PartySignatoryDetails extends StatelessWidget {
                     isAtLeastOneSecondSignatoryCompleted;
 
                 return ElevatedButton(
+                  style: ButtonStyle(
+                    minimumSize: WidgetStatePropertyAll(Size(double.infinity,
+                        SizeConfig.screenHeight(context) / 20)),
+                    elevation: WidgetStatePropertyAll(0),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12))),
+                    backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                      (Set<WidgetState> states) {
+                        if (states.contains(WidgetState.disabled)) {
+                          return const Color.fromARGB(55, 78, 77, 77);
+                        }
+                        return ColorConstants.buttonColor;
+                      },
+                    ),
+                  ),
                   onPressed: isContinueEnabled
                       ? () {
                           print("Proceed button pressed");
                           Get.to(() => DashboardView());
                         }
                       : null,
-                  child: Text('Continue'),
+                  child: RmiWidgetHelper.rmiText(
+                    text: 'Continue',
+                    color: ColorConstants.backgroundWhite,
+                  ),
                 );
               }),
             ],

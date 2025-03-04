@@ -27,11 +27,12 @@ class DashboardView extends StatelessWidget {
       backgroundColor: Color(0xFFF0EEFF),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                margin: EdgeInsets.only(top: 20),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: ColorConstants.backgroundWhite,
@@ -80,7 +81,7 @@ class DashboardView extends StatelessWidget {
                   ],
                 ),
               ),
-              RmiWidgetHelper.verticalSpacer(20),
+              RmiWidgetHelper.verticalSpacer(30),
               Obx(() {
                 List<Widget> services = [
                   buildServiceTile(
@@ -114,15 +115,15 @@ class DashboardView extends StatelessWidget {
                 ];
 
                 return AnimatedContainer(
-                  padding: EdgeInsets.all(10),
                   duration: Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
                     color: ColorConstants.backgroundWhite,
                   ),
                   child: GridView.count(
-                    mainAxisSpacing: 20,
+                    mainAxisSpacing: 2,crossAxisSpacing: 10,
+                    padding: EdgeInsets.all(15),
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     childAspectRatio: 1.0,
@@ -158,7 +159,7 @@ class DashboardView extends StatelessWidget {
                 );
               }),
 
-              RmiWidgetHelper.verticalSpacer(20),
+              RmiWidgetHelper.verticalSpacer(30),
               SizedBox(child: buildNotification(context)),
               RmiWidgetHelper.verticalSpacer(20),
               // buildCard(context),
@@ -214,12 +215,19 @@ class DashboardView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(selectedLabelStyle: TextStyle(fontWeight: FontWeight.w700),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w700),
         currentIndex: 1,
         items: [
-          BottomNavigationBarItem(icon: SvgPicture.asset(AssetsConstants.help), label: 'HELP',),
-          BottomNavigationBarItem(icon: SvgPicture.asset(AssetsConstants.home), label: 'HOME'),
-          BottomNavigationBarItem(icon: SvgPicture.asset(AssetsConstants.history), label: 'HISTORY'),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(AssetsConstants.help),
+            label: 'HELP',
+          ),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(AssetsConstants.home), label: 'HOME'),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(AssetsConstants.history),
+              label: 'HISTORY'),
         ],
       ),
     ));
