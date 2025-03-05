@@ -173,7 +173,7 @@ class FirstSignatoryDetails extends StatelessWidget {
                         icon: Icon(Icons.calendar_month),
                       ),
                     ),
-                    RmiWidgetHelper.horizontalSpacer(20),
+                    RmiWidgetHelper.horizontalSpacer(12),
                     Obx(() {
                       return controller.selectedDate.value == null
                           ? RmiWidgetHelper.rmiColumn(
@@ -267,7 +267,7 @@ class FirstSignatoryDetails extends StatelessWidget {
                           text: AppStrings.firstSignatoryDetails,
                           color: ColorConstants.fontGrey,
                         ),
-                        RmiWidgetHelper.horizontalSpacer(40.0),
+                        RmiWidgetHelper.horizontalSpacer(30.0),
                         RmiWidgetHelper.rmiIconButton(
                           icon: SvgPicture.asset(
                             AssetsConstants.delete,

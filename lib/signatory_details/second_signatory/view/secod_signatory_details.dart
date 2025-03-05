@@ -183,7 +183,7 @@ class SecondSignatoryDetails extends StatelessWidget {
                                   icon: Icon(Icons.calendar_month),
                                 ),
                               ),
-                              RmiWidgetHelper.horizontalSpacer(20),
+                              RmiWidgetHelper.horizontalSpacer(12),
                               instance.selectedDate.value == null
                                   ? RmiWidgetHelper.rmiColumn(
                                       crossAxisAlignment:
@@ -285,7 +285,7 @@ class SecondSignatoryDetails extends StatelessWidget {
                                       text: AppStrings.secondSignatoryDetails,
                                       color: ColorConstants.fontGrey,
                                     ),
-                                    RmiWidgetHelper.horizontalSpacer(25.0),
+                                    RmiWidgetHelper.horizontalSpacer(5.0),
                                     RmiWidgetHelper.rmiIconButton(
                                       icon: SvgPicture.asset(
                                         AssetsConstants.delete,

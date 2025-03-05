@@ -18,6 +18,7 @@ class ColorConstants {
   static const avatarColor1 = Color(0xFFE7F3FF);
   static const avatarColor2 = Color(0xFFF8FDC5);
   static const avatarColor3 = Color(0xFFF5FEE6);
+  static const borderColor = Color(0xFFE5E5E5);
 
   
 }

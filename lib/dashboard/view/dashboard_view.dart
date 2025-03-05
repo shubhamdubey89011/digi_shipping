@@ -1,5 +1,6 @@
 import 'package:document_fill_demo/constants/assets_constants.dart';
 import 'package:document_fill_demo/constants/color_constants.dart';
+import 'package:document_fill_demo/constants/dimensions.dart';
 import 'package:document_fill_demo/dashboard/controller/dashboard_controller.dart';
 import 'package:document_fill_demo/dashboard/view/ui.dart';
 import 'package:document_fill_demo/utils/widget_utils.dart';
@@ -20,9 +21,11 @@ class DashboardView extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: RmiWidgetHelper.rmiAppBar(
+        spacing: 22,
         automaticallyImplyLeading: false,
         elevation: 0,
         title: 'Hi $title',
+        height: SizeConfig.screenHeight(context) / 15,
       ),
       backgroundColor: Color(0xFFF0EEFF),
       body: SingleChildScrollView(
@@ -61,12 +64,10 @@ class DashboardView extends StatelessWidget {
                               SvgPicture.asset(
                                 AssetsConstants.mobile,
                               ),
-                              Text(
-                                'Mobile',
-                                style: TextStyle(
-                                    color: ColorConstants.fontDarkGrey,
-                                    fontSize: 6,
-                                    fontWeight: FontWeight.w800),
+                              RmiWidgetHelper.rmiText(
+                                text: 'Mobile',
+                                fontSize: 6,
+                                fontWeight: FontWeight.w800,
                               ),
                               Text(
                                 'Recharge',
@@ -81,7 +82,7 @@ class DashboardView extends StatelessWidget {
                   ],
                 ),
               ),
-              RmiWidgetHelper.verticalSpacer(30),
+              RmiWidgetHelper.verticalSpacer(8),
               Obx(() {
                 List<Widget> services = [
                   buildServiceTile(
@@ -122,11 +123,12 @@ class DashboardView extends StatelessWidget {
                     color: ColorConstants.backgroundWhite,
                   ),
                   child: GridView.count(
-                    mainAxisSpacing: 2,crossAxisSpacing: 10,
-                    padding: EdgeInsets.all(15),
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 12,
+                    padding: EdgeInsets.all(13),
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    childAspectRatio: 1.0,
+                    childAspectRatio: 0.9,
                     crossAxisCount: 4,
                     children: [
                       ...services,
@@ -159,58 +161,13 @@ class DashboardView extends StatelessWidget {
                 );
               }),
 
-              RmiWidgetHelper.verticalSpacer(30),
+              RmiWidgetHelper.verticalSpacer(9),
               SizedBox(child: buildNotification(context)),
-              RmiWidgetHelper.verticalSpacer(20),
+              RmiWidgetHelper.verticalSpacer(9),
               // buildCard(context),
               buildCardSlider(context),
-              RmiWidgetHelper.verticalSpacer(20),
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: ColorConstants.backgroundWhite,
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          child: Image.asset(AssetsConstants.shrug, height: 40),
-                        ),
-                        RmiWidgetHelper.horizontalSpacer(30),
-                        MaterialButton(
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          color: Colors.black,
-                          onPressed: () {},
-                          child: RmiWidgetHelper.rmiText(
-                            text: 'HELP',
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    left: 100,
-                    top: -10,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Image.asset(
-                        AssetsConstants.questionMark,
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              RmiWidgetHelper.verticalSpacer(16),
+              buildHelpSection(context),
             ],
           ),
         ),

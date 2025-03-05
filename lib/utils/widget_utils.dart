@@ -626,14 +626,17 @@ static Widget rmicustomDropdown<T>({
     PreferredSizeWidget? bottom,
     double elevation = 4.0,
     bool automaticallyImplyLeading = false,
+    double? spacing,
+    Text? text,
+    double? height,
   }) {
     return AppBar(
-      toolbarHeight: 62,
-      clipBehavior: Clip.antiAlias,
-      titleSpacing: 10,
-      automaticallyImplyLeading: automaticallyImplyLeading,
+      // toolbarHeight: 62,
+      // clipBehavior: Clip.antiAlias,
+      titleSpacing: spacing ?? 10,
+      automaticallyImplyLeading: automaticallyImplyLeading,toolbarHeight: height,
       bottom: bottom,
-      title: Row(
+      title: text ?? Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
@@ -724,7 +727,7 @@ static Widget rmicustomDropdown<T>({
     Decoration? decoration,
   }) {
     return Container(
-      width: width ?? MediaQuery.of(context).size.width * 0.29,
+      width: width ?? MediaQuery.of(context).size.width * 0.31,
       padding: padding ?? EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: decoration ??
           BoxDecoration(
